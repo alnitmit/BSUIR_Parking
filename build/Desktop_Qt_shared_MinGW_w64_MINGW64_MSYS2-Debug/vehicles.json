@@ -1,0 +1,112 @@
+[
+    {
+        "isParked": true,
+        "licensePlate": "4142AA",
+        "model": "Toyota Camry",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "1111EE",
+        "model": "Audi A4",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "1441BB",
+        "model": "Lexus ES",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "3333AB",
+        "model": "BMW 5-Series",
+        "type": "Car"
+    },
+    {
+        "isParked": false,
+        "licensePlate": "1111AA",
+        "model": "Porsche 911",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "2211AA",
+        "model": "Porsche Cayenne",
+        "type": "Car"
+    },
+    {
+        "isParked": false,
+        "licensePlate": "7778NE",
+        "model": "Audi Q5",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "4544UU",
+        "model": "Lada Vesta",
+        "type": "Car"
+    },
+    {
+        "isParked": false,
+        "licensePlate": "3965EE",
+        "model": "Renault Logan",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "3787NE",
+        "model": "Toyota Camry",
+        "type": "Car"
+    },
+    {
+        "isParked": false,
+        "licensePlate": "3334BM",
+        "model": "Hyundai Solaris",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "2319MM",
+        "model": "Kia Rio",
+        "type": "Car"
+    },
+    {
+        "isParked": false,
+        "licensePlate": "5467EE",
+        "model": "Lada Granta",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "3234AE",
+        "model": "Volkswagen Polo",
+        "type": "Car"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "3232EA",
+        "model": "Ford Focus",
+        "type": "Car"
+    },
+    {
+        "cargoType": "Авто",
+        "isParked": false,
+        "licensePlate": "3215FF",
+        "model": "Грузовик (Авто)",
+        "type": "Truck"
+    },
+    {
+        "cargoType": "Авто",
+        "isParked": false,
+        "licensePlate": "3125EU",
+        "model": "Грузовик (Авто)",
+        "type": "Truck"
+    },
+    {
+        "isParked": true,
+        "licensePlate": "1245FE",
+        "model": "Audi Q8",
+        "type": "Car"
+    }
+]

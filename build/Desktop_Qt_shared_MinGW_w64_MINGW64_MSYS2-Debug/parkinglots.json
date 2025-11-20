@@ -1,0 +1,328 @@
+{
+    "1": {
+        "name": "Центральная парковка",
+        "spots": [
+            {
+                "number": 1,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "1111EE"
+            },
+            {
+                "number": 2,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "1441BB"
+            },
+            {
+                "number": 3,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 4,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "3333AB"
+            },
+            {
+                "number": 5,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 6,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 7,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 8,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "3787NE"
+            },
+            {
+                "number": 9,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 10,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 11,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "3232EA"
+            },
+            {
+                "number": 12,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "4544UU"
+            },
+            {
+                "number": 13,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 14,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "3234AE"
+            },
+            {
+                "number": 15,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 16,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 17,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 18,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 19,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "2319MM"
+            },
+            {
+                "number": 20,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 21,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "4142AA"
+            },
+            {
+                "number": 22,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 23,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 24,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "1245FE"
+            },
+            {
+                "number": 25,
+                "occupied": true,
+                "size": "Стандартное",
+                "vehicleLicensePlate": "2211AA"
+            }
+        ]
+    },
+    "2": {
+        "name": "Северная парковка",
+        "spots": [
+            {
+                "number": 1,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 2,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 3,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 4,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 5,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 6,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 7,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 8,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 9,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 10,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 11,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 12,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 13,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 14,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 15,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 16,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 17,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 18,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 19,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 20,
+                "occupied": false,
+                "size": "Стандартное"
+            }
+        ]
+    },
+    "3": {
+        "name": "Южная парковка",
+        "spots": [
+            {
+                "number": 1,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 2,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 3,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 4,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 5,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 6,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 7,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 8,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 9,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 10,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 11,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 12,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 13,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 14,
+                "occupied": false,
+                "size": "Стандартное"
+            },
+            {
+                "number": 15,
+                "occupied": false,
+                "size": "Стандартное"
+            }
+        ]
+    }
+}

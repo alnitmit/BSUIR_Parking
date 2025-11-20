@@ -1,0 +1,322 @@
+{
+    "nextLotId": 10,
+    "parkingLots": {
+        "4": {
+            "name": "Центральная парковка",
+            "spots": [
+                {
+                    "number": 1,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 2,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 3,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 4,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 5,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 6,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 7,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 8,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 9,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 10,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 11,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 12,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 13,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 14,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 15,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 16,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 17,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 18,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 19,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 20,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 21,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 22,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 23,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 24,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 25,
+                    "occupied": false,
+                    "size": "Стандартное"
+                }
+            ]
+        },
+        "5": {
+            "name": "Северная парковка",
+            "spots": [
+                {
+                    "number": 1,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 2,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 3,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 4,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 5,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 6,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 7,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 8,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 9,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 10,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 11,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 12,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 13,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 14,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 15,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 16,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 17,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 18,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 19,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 20,
+                    "occupied": false,
+                    "size": "Стандартное"
+                }
+            ]
+        },
+        "6": {
+            "name": "Южная парковка",
+            "spots": [
+                {
+                    "number": 1,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 2,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 3,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 4,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 5,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 6,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 7,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 8,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 9,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 10,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 11,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 12,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 13,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 14,
+                    "occupied": false,
+                    "size": "Стандартное"
+                },
+                {
+                    "number": 15,
+                    "occupied": false,
+                    "size": "Стандартное"
+                }
+            ]
+        }
+    },
+    "vehicles": [
+    ]
+}
