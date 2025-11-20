@@ -18,7 +18,7 @@ class InputDialog : public QDialog
     Q_OBJECT
 
 public:
-    enum InputType {
+    enum class InputType {
         Text,
         Integer,
         ComboBox
@@ -49,11 +49,11 @@ private slots:
 private:
     void setupUI(const QString& title, const QString& label, InputType type);
 
-    QLineEdit* textEdit;
-    QSpinBox* spinBox;
-    QComboBox* comboBox;
-    QPushButton* btnOk;
-    QPushButton* btnCancel;
+    QLineEdit* textEdit = nullptr;
+    QSpinBox* spinBox = nullptr;
+    QComboBox* comboBox = nullptr;
+    QPushButton* btnOk = nullptr;
+    QPushButton* btnCancel = nullptr;
 };
 
 #endif // INPUTDIALOG_H

@@ -5,7 +5,7 @@
 #include <QKeyEvent>
 
 InputDialog::InputDialog(const QString& title, const QString& label, InputType type, QWidget* parent)
-    : QDialog(parent), textEdit(nullptr), spinBox(nullptr), comboBox(nullptr)
+    : QDialog(parent)
 {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -19,7 +19,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
     setFixedSize(500, 250); // Увеличиваем размер для лучшего отображения
 
     // Main frame with shadow
-    QFrame* mainFrame = new QFrame(this);
+    auto mainFrame = new QFrame(this);
     mainFrame->setObjectName("mainFrame");
     mainFrame->setStyleSheet(
         "QFrame#mainFrame {"
@@ -36,16 +36,16 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
     shadowEffect->setOffset(0, 10);
     mainFrame->setGraphicsEffect(shadowEffect);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(30, 30, 30, 30);
     mainLayout->addWidget(mainFrame);
 
-    QVBoxLayout* frameLayout = new QVBoxLayout(mainFrame);
+    auto frameLayout = new QVBoxLayout(mainFrame);
     frameLayout->setContentsMargins(35, 30, 35, 25);
     frameLayout->setSpacing(25);
 
     // Title
-    QLabel* titleLabel = new QLabel(title);
+    auto titleLabel = new QLabel(title);
     titleLabel->setStyleSheet(
         "QLabel {"
         "  color: #ecf0f1;"
@@ -59,7 +59,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
     frameLayout->addWidget(titleLabel);
 
     // Label
-    QLabel* descLabel = new QLabel(label);
+    auto descLabel = new QLabel(label);
     descLabel->setStyleSheet(
         "QLabel {"
         "  color: #bdc3c7;"
@@ -132,7 +132,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
         "}";
 
     switch (type) {
-    case Text:
+    case InputType::Text:
         textEdit = new QLineEdit();
         textEdit->setStyleSheet(inputStyle);
         textEdit->setPlaceholderText("Введите значение...");
@@ -140,7 +140,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
         frameLayout->addWidget(textEdit);
         break;
 
-    case Integer:
+    case InputType::Integer:
         spinBox = new QSpinBox();
         spinBox->setStyleSheet(inputStyle);
         spinBox->setRange(0, 1000);
@@ -150,7 +150,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
         frameLayout->addWidget(spinBox);
         break;
 
-    case ComboBox:
+    case InputType::ComboBox:
         comboBox = new QComboBox();
         comboBox->setStyleSheet(inputStyle);
         comboBox->setMinimumHeight(40);
@@ -161,7 +161,7 @@ void InputDialog::setupUI(const QString& title, const QString& label, InputType 
     frameLayout->addSpacing(10);
 
     // Buttons
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    auto buttonLayout = new QHBoxLayout();
     buttonLayout->setSpacing(20);
 
     btnOk = new QPushButton("✓ Подтвердить");
@@ -236,14 +236,14 @@ void InputDialog::showEvent(QShowEvent* event)
     if (parentWidget()) {
         move(parentWidget()->mapToGlobal(parentWidget()->rect().center()) - rect().center());
     } else {
-        QScreen* screen = QApplication::primaryScreen();
+        const QScreen* screen = QApplication::primaryScreen();
         if (screen) {
             move(screen->geometry().center() - rect().center());
         }
     }
 
     // Fade in animation
-    QPropertyAnimation* animation = new QPropertyAnimation(this, "windowOpacity");
+    auto animation = new QPropertyAnimation(this, "windowOpacity");
     animation->setDuration(200);
     animation->setStartValue(0);
     animation->setEndValue(1);
@@ -271,7 +271,7 @@ void InputDialog::onCancelClicked()
 // Static convenience methods
 QString InputDialog::getText(const QString& title, const QString& label, const QString& defaultValue, QWidget* parent)
 {
-    InputDialog dialog(title, label, Text, parent);
+    InputDialog dialog(title, label, InputType::Text, parent);
     if (dialog.textEdit) {
         dialog.textEdit->setText(defaultValue);
         dialog.textEdit->selectAll();
@@ -281,7 +281,7 @@ QString InputDialog::getText(const QString& title, const QString& label, const Q
 
 int InputDialog::getInteger(const QString& title, const QString& label, int defaultValue, int min, int max, QWidget* parent)
 {
-    InputDialog dialog(title, label, Integer, parent);
+    InputDialog dialog(title, label, InputType::Integer, parent);
     if (dialog.spinBox) {
         dialog.spinBox->setRange(min, max);
         dialog.spinBox->setValue(defaultValue);
@@ -291,7 +291,7 @@ int InputDialog::getInteger(const QString& title, const QString& label, int defa
 
 QString InputDialog::getItem(const QString& title, const QString& label, const QStringList& items, int currentIndex, QWidget* parent)
 {
-    InputDialog dialog(title, label, ComboBox, parent);
+    InputDialog dialog(title, label, InputType::ComboBox, parent);
     if (dialog.comboBox) {
         dialog.comboBox->addItems(items);
         dialog.comboBox->setCurrentIndex(currentIndex);

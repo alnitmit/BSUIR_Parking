@@ -15,7 +15,7 @@ class ModernDialog : public QDialog
     Q_OBJECT
 
 public:
-    enum DialogType {
+    enum class DialogType {
         Info,
         Success,
         Warning,
@@ -45,10 +45,10 @@ private:
     QString getIcon(DialogType type) const;
     QString getStyleSheet(DialogType type) const;
 
-    QPushButton* btnYes;
-    QPushButton* btnNo;
-    QPushButton* btnOk;
-    bool result;
+    QPushButton* btnYes = nullptr;
+    QPushButton* btnNo = nullptr;
+    QPushButton* btnOk = nullptr;
+    bool result = false;
 };
 
 #endif

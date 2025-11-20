@@ -5,7 +5,7 @@
 #include <QLinearGradient>
 
 ModernDialog::ModernDialog(DialogType type, const QString& title, const QString& message, QWidget* parent)
-    : QDialog(parent), result(false)
+    : QDialog(parent)
 {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -19,7 +19,7 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
     setFixedSize(400, 280);
 
     // Main frame with shadow
-    QFrame* mainFrame = new QFrame(this);
+    auto mainFrame = new QFrame(this);
     mainFrame->setObjectName("mainFrame");
     mainFrame->setStyleSheet(getStyleSheet(type));
 
@@ -30,24 +30,24 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
     shadowEffect->setOffset(0, 5);
     mainFrame->setGraphicsEffect(shadowEffect);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(20, 20, 20, 20);
     mainLayout->addWidget(mainFrame);
 
-    QVBoxLayout* frameLayout = new QVBoxLayout(mainFrame);
+    auto frameLayout = new QVBoxLayout(mainFrame);
     frameLayout->setContentsMargins(30, 30, 30, 25);
     frameLayout->setSpacing(20);
 
     // Icon and title
-    QHBoxLayout* headerLayout = new QHBoxLayout();
+    auto headerLayout = new QHBoxLayout();
     headerLayout->setSpacing(15);
 
-    QLabel* iconLabel = new QLabel();
+    auto iconLabel = new QLabel();
     iconLabel->setText(getIcon(type));
     iconLabel->setStyleSheet("QLabel { font-size: 40px; background: transparent; }");
     iconLabel->setFixedSize(50, 50);
 
-    QLabel* titleLabel = new QLabel(title);
+    auto titleLabel = new QLabel(title);
     titleLabel->setStyleSheet("QLabel { color: white; font-size: 18px; font-weight: bold; background: transparent; }");
     titleLabel->setWordWrap(true);
 
@@ -58,7 +58,7 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
     frameLayout->addLayout(headerLayout);
 
     // Message
-    QLabel* messageLabel = new QLabel(message);
+    auto messageLabel = new QLabel(message);
     messageLabel->setStyleSheet("QLabel { color: rgba(255,255,255,0.9); font-size: 14px; line-height: 1.4; background: transparent; }");
     messageLabel->setWordWrap(true);
     messageLabel->setAlignment(Qt::AlignLeft);
@@ -66,10 +66,10 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
     frameLayout->addStretch();
 
     // Buttons
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    auto buttonLayout = new QHBoxLayout();
     buttonLayout->setSpacing(15);
 
-    if (type == Question) {
+    if (type == DialogType::Question) {
         btnYes = new QPushButton("✓ Да");
         btnNo = new QPushButton("✗ Нет");
 
@@ -123,11 +123,11 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
 QString ModernDialog::getIcon(DialogType type) const
 {
     switch (type) {
-    case Info: return "💡";
-    case Success: return "✅";
-    case Warning: return "⚠️";
-    case Error: return "❌";
-    case Question: return "❓";
+    case DialogType::Info: return "💡";
+    case DialogType::Success: return "✅";
+    case DialogType::Warning: return "⚠️";
+    case DialogType::Error: return "❌";
+    case DialogType::Question: return "❓";
     default: return "💡";
     }
 }
@@ -136,19 +136,19 @@ QString ModernDialog::getStyleSheet(DialogType type) const
 {
     QString gradient;
     switch (type) {
-    case Info:
+    case DialogType::Info:
         gradient = "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #3498db, stop:1 #2980b9)";
         break;
-    case Success:
+    case DialogType::Success:
         gradient = "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #27ae60, stop:1 #219a52)";
         break;
-    case Warning:
+    case DialogType::Warning:
         gradient = "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #f39c12, stop:1 #e67e22)";
         break;
-    case Error:
+    case DialogType::Error:
         gradient = "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #e74c3c, stop:1 #c0392b)";
         break;
-    case Question:
+    case DialogType::Question:
         gradient = "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #9b59b6, stop:1 #8e44ad)";
         break;
     default:
@@ -172,14 +172,14 @@ void ModernDialog::showEvent(QShowEvent* event)
     if (parentWidget()) {
         move(parentWidget()->mapToGlobal(parentWidget()->rect().center()) - rect().center());
     } else {
-        QScreen* screen = QApplication::primaryScreen();
+        const QScreen* screen = QApplication::primaryScreen();
         if (screen) {
             move(screen->geometry().center() - rect().center());
         }
     }
 
     // Fade in animation
-    QPropertyAnimation* animation = new QPropertyAnimation(this, "windowOpacity");
+    auto animation = new QPropertyAnimation(this, "windowOpacity");
     animation->setDuration(200);
     animation->setStartValue(0);
     animation->setEndValue(1);
@@ -209,30 +209,30 @@ void ModernDialog::onNoClicked()
 // Static convenience methods
 void ModernDialog::showInfo(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Info, title, message, parent);
+    ModernDialog dialog(DialogType::Info, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showSuccess(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Success, title, message, parent);
+    ModernDialog dialog(DialogType::Success, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showWarning(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Warning, title, message, parent);
+    ModernDialog dialog(DialogType::Warning, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showError(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Error, title, message, parent);
+    ModernDialog dialog(DialogType::Error, title, message, parent);
     dialog.exec();
 }
 
 bool ModernDialog::showQuestion(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Question, title, message, parent);
+    ModernDialog dialog(DialogType::Question, title, message, parent);
     return dialog.exec() == QDialog::Accepted && dialog.result;
 }
