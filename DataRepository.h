@@ -9,7 +9,10 @@
 
 class DataRepository {
 public:
-    static DataRepository& getInstance();
+    static inline DataRepository& getInstance() {
+        static DataRepository instance;
+        return instance;
+    }
 
     std::vector<VehicleData>& getVehicles() { return vehicles_; }
     const std::vector<VehicleData>& getVehicles() const { return vehicles_; }

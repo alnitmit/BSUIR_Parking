@@ -24,7 +24,7 @@ public:
         ComboBox
     };
 
-    explicit InputDialog(const QString& title, const QString& label, InputType type = Text,
+    explicit InputDialog(const QString& title, const QString& label, InputType type = InputType::Text,
                          QWidget* parent = nullptr);
 
     static QString getText(const QString& title, const QString& label, const QString& defaultValue = "",
