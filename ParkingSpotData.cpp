@@ -2,7 +2,7 @@
 
 ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::STANDARD), occupied_(false) {}
 
-ParkingSpotData::ParkingSpotData(int number, Size size) 
+ParkingSpotData::ParkingSpotData(int number, Size size)
     : number_(number), size_(size), occupied_(false) {}
 
 int ParkingSpotData::getNumber() const {
@@ -23,10 +23,10 @@ void ParkingSpotData::setSize(Size size) {
 
 std::string ParkingSpotData::getSizeString() const {
     switch (size_) {
-    case Size::COMPACT: return "Компактное";
-    case Size::STANDARD: return "Стандартное";
-    case Size::LARGE: return "Большое";
-    default: return "Неизвестно";
+    case Size::COMPACT: return "COMPACT";
+    case Size::STANDARD: return "STANDARD";
+    case Size::LARGE: return "LARGE";
+    default: return "STANDARD";
     }
 }
 

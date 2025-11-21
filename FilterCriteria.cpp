@@ -9,7 +9,7 @@ bool FilterCriteria::matchesVehicle(const VehicleData& vehicle) const {
 }
 
 bool FilterCriteria::matchesSpot(const ParkingSpotData& spot) const {
-    if (spotSize != "All" && spot.getSizeString() != spotSize.toStdString()) {
+    if (spotSize != "ALL" && QString::fromStdString(spot.getSizeString()) != spotSize) {
         return false;
     }
     if (spot.getNumber() < minSpotNumber || spot.getNumber() > maxSpotNumber) {

@@ -10,7 +10,7 @@ struct FilterCriteria {
     bool includeTrucks = true;
     bool includeParked = true;
     bool includeNotParked = true;
-    QString spotSize = "All";
+    QString spotSize = "ALL";
     int minSpotNumber = 1;
     int maxSpotNumber = 1000;
 
