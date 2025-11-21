@@ -1,6 +1,7 @@
 # CMake build directories
 build/
 cmake-build-*/
+.build
 
 # Qt Creator user files
 *.autosave
