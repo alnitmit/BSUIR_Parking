@@ -1,9 +1,9 @@
 #include "ParkingSpotData.h"
 
-ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::STANDARD), occupied_(false) {}
+ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::STANDARD) {}
 
 ParkingSpotData::ParkingSpotData(int number, Size size)
-    : number_(number), size_(size), occupied_(false) {}
+    : number_(number), size_(size) {}
 
 int ParkingSpotData::getNumber() const {
     return number_;
