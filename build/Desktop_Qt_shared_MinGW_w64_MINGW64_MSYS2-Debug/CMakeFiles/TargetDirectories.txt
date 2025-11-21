@@ -1,9 +1,0 @@
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/pr.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/edit_cache.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/list_install_components.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/install.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/install/local.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/install/strip.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/pr_autogen_timestamp_deps.dir
-C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/CMakeFiles/pr_autogen.dir
