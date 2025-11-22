@@ -5,8 +5,7 @@
 #include <cmath>
 
 ParkingLotView::ParkingLotView(QWidget *parent)
-    : QWidget(parent), columns_(5), spotWidth_(120), spotHeight_(80),
-    horizontalSpacing_(15), verticalSpacing_(15), margin_(20)
+    : QWidget(parent)  // Исправлено: удалены инициализации из списка
 {
     setMinimumSize(800, 600);
     setStyleSheet("background-color: #2b2f3a;");
@@ -78,7 +77,7 @@ void ParkingLotView::paintEvent(QPaintEvent *event) {
     drawParkingLayout(painter);
 }
 
-void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, const QRect &rect) {
+void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, const QRect &rect) const {  // Исправлено: const
     QLinearGradient gradient(rect.topLeft(), rect.bottomLeft());
 
     if (spot.occupied) {
@@ -121,7 +120,7 @@ void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, 
     }
 }
 
-void ParkingLotView::drawParkingLayout(QPainter &painter) {
+void ParkingLotView::drawParkingLayout(QPainter &painter) const {  // Исправлено: const
     if (spots_.isEmpty()) return;
 
     painter.setPen(QPen(QColor(149, 165, 166, 100), 4));

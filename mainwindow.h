@@ -31,8 +31,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainWindow(QWidget *parent = nullptr);  // Исправлено: explicit
+    ~MainWindow() override;  // Исправлено: override
 
 private slots:
     void onCreateParking();
@@ -50,39 +50,42 @@ private:
     void setupLeftPanel();
     void setupRightPanel();
     void setupConnections();
-    void updateVehicleTable();
+    void updateVehicleTable() const;  // Исправлено: const
     void updateParkingCombo();
     void updateParkingView();
     void closeEvent(QCloseEvent *event) override;
 
-    QWidget *leftPanel;
-    QComboBox *parkingCombo;
-    QPushButton *btnCreateParking;
-    QPushButton *btnDeleteParking;
-    QPushButton *btnAddVehicle;
-    QPushButton *btnRemoveVehicle;
-    QPushButton *btnParkVehicle;
-    QPushButton *btnFreeSpot;
+    // Основные виджеты
+    QWidget *leftPanel = nullptr;
+    QComboBox *parkingCombo = nullptr;
+    QPushButton *btnCreateParking = nullptr;
+    QPushButton *btnDeleteParking = nullptr;
+    QPushButton *btnAddVehicle = nullptr;
+    QPushButton *btnRemoveVehicle = nullptr;
+    QPushButton *btnParkVehicle = nullptr;
+    QPushButton *btnFreeSpot = nullptr;
 
-    QLabel *totalSpotsLabel;
-    QLabel *occupiedSpotsLabel;
-    QLabel *freeSpotsLabel;
-    QLabel *occupancyPercentLabel;
-    QProgressBar *occupancyBar;
+    // Статистика
+    QLabel *totalSpotsLabel = nullptr;
+    QLabel *occupiedSpotsLabel = nullptr;
+    QLabel *freeSpotsLabel = nullptr;
+    QLabel *occupancyPercentLabel = nullptr;
+    QProgressBar *occupancyBar = nullptr;
 
-    QWidget *rightPanel;
-    QLabel *parkingNameLabel;
-    QLabel *spotsInfoLabel;
-    QLabel *occupancyInfoLabel;
-    QTableWidget *vehicleTable;
-    QTabWidget *mainTabs;
+    // Правая панель
+    QWidget *rightPanel = nullptr;
+    QLabel *parkingNameLabel = nullptr;
+    QLabel *spotsInfoLabel = nullptr;
+    QLabel *occupancyInfoLabel = nullptr;
+    QTableWidget *vehicleTable = nullptr;
+    QTabWidget *mainTabs = nullptr;
 
     ParkingSystem parkingSystem_;
 
-    ParkingLotView *parkingLotView;
-    QScrollArea *parkingScrollArea;
+    ParkingLotView *parkingLotView = nullptr;
+    QScrollArea *parkingScrollArea = nullptr;
 
-    QTimer *statsTimer;
+    QTimer *statsTimer = nullptr;
 };
 
 #endif

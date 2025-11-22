@@ -1,22 +1,22 @@
 #include "ParkingLotService.h"
 #include <algorithm>
+#include <ranges>
 
-bool ParkingLotService::createParkingLot(const std::string& name, 
-                                          int totalSpots, 
-                                          int lotId,
-                                          std::map<int, ParkingLotData>& lots) {
+bool ParkingLotService::createParkingLot(std::string_view name,  // Исправлено: string_view
+                                         int totalSpots,
+                                         int lotId,
+                                         std::map<int, ParkingLotData>& lots) {
     if (totalSpots > 40) totalSpots = 40;
-    
+
     ParkingLotData lot(lotId, name);
     initializeSpots(lot, totalSpots);
-    
+
     lots[lotId] = lot;
     return true;
 }
 
 bool ParkingLotService::removeParkingLot(int lotId, std::map<int, ParkingLotData>& lots) {
-    auto it = lots.find(lotId);
-    if (it != lots.end()) {
+    if (auto it = lots.find(lotId); it != lots.end()) {  // Исправлено: init-statement
         lots.erase(it);
         return true;
     }
@@ -34,8 +34,8 @@ const ParkingLotData* ParkingLotService::getParkingLot(int lotId, const std::map
 }
 
 int ParkingLotService::getOccupiedSpots(const ParkingLotData& lot) {
-    return std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
-        [](const ParkingSpotData& s) { return s.isOccupied(); });
+    return std::ranges::count_if(lot.getSpots(),  // Исправлено: ranges::count_if
+                                 [](const ParkingSpotData& s) { return s.isOccupied(); });
 }
 
 int ParkingLotService::getFreeSpots(const ParkingLotData& lot) {
@@ -49,23 +49,23 @@ double ParkingLotService::getOccupancyRate(const ParkingLotData& lot) {
 
 void ParkingLotService::initializeSpots(ParkingLotData& lot, int totalSpots) {
     lot.clearSpots();
-    
+
     int compactSpots = std::max(1, totalSpots / 3);
     int largeSpots = std::max(1, totalSpots / 4);
     int standardSpots = totalSpots - compactSpots - largeSpots;
-    
+
     int spotNumber = 1;
-    
+
     for (int i = 0; i < compactSpots; ++i) {
         ParkingSpotData spot(spotNumber++, ParkingSpotData::Size::COMPACT);
         lot.addSpot(spot);
     }
-    
+
     for (int i = 0; i < standardSpots; ++i) {
         ParkingSpotData spot(spotNumber++, ParkingSpotData::Size::STANDARD);
         lot.addSpot(spot);
     }
-    
+
     for (int i = 0; i < largeSpots; ++i) {
         ParkingSpotData spot(spotNumber++, ParkingSpotData::Size::LARGE);
         lot.addSpot(spot);

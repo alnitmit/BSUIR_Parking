@@ -1,8 +1,9 @@
 #include "StatisticsService.h"
 #include <algorithm>
+#include <ranges>
 
-ParkingStatistics::ParkingStatistics() 
-    : totalSpots_(0), occupiedSpots_(0), freeSpots_(0), occupancyRate_(0.0) {}
+ParkingStatistics::ParkingStatistics()  // Исправлено: инициализация в классе
+{}
 
 int ParkingStatistics::getTotalSpots() const {
     return totalSpots_;
@@ -38,25 +39,25 @@ void ParkingStatistics::setOccupancyRate(double occupancyRate) {
 
 ParkingStatistics StatisticsService::calculateStatistics(const std::map<int, ParkingLotData>& lots) {
     ParkingStatistics stats;
-    
+
     int totalSpots = 0;
     int occupiedSpots = 0;
-    
+
     for (const auto& [id, lot] : lots) {
         totalSpots += static_cast<int>(lot.getSpots().size());
-        occupiedSpots += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
-            [](const ParkingSpotData& s) { return s.isOccupied(); });
+        occupiedSpots += std::ranges::count_if(lot.getSpots(),  // Исправлено: ranges::count_if
+                                               [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
-    
+
     stats.setTotalSpots(totalSpots);
     stats.setOccupiedSpots(occupiedSpots);
     stats.setFreeSpots(totalSpots - occupiedSpots);
-    
-    double rate = (totalSpots > 0) 
-        ? static_cast<double>(occupiedSpots) / totalSpots * 100.0 
-        : 0.0;
+
+    double rate = (totalSpots > 0)
+                      ? static_cast<double>(occupiedSpots) / totalSpots * 100.0
+                      : 0.0;
     stats.setOccupancyRate(rate);
-    
+
     return stats;
 }
 
@@ -71,8 +72,8 @@ int StatisticsService::getTotalSpots(const std::map<int, ParkingLotData>& lots) 
 int StatisticsService::getOccupiedSpots(const std::map<int, ParkingLotData>& lots) {
     int occupied = 0;
     for (const auto& [id, lot] : lots) {
-        occupied += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
-            [](const ParkingSpotData& s) { return s.isOccupied(); });
+        occupied += std::ranges::count_if(lot.getSpots(),  // Исправлено: ranges::count_if
+                                          [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
     return occupied;
 }

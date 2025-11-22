@@ -6,77 +6,78 @@
 #include "SpotAlreadyFreeError.h"
 #include "IncompatibleSpotSizeError.h"
 #include <algorithm>
+#include <ranges>
+#include <format>
 
-bool ParkingService::parkVehicle(const std::string& licensePlate, 
-                                 int lotId, 
+bool ParkingService::parkVehicle(std::string_view licensePlate,  // Исправлено: string_view
+                                 int lotId,
                                  int spotNumber,
                                  std::map<int, ParkingLotData>& lots,
                                  const std::vector<VehicleData>& vehicles) {
-    auto vehicleIt = std::find_if(vehicles.begin(), vehicles.end(),
-        [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
-    
+    auto vehicleIt = std::ranges::find_if(vehicles,  // Исправлено: ranges::find_if
+                                          [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
+
     if (vehicleIt == vehicles.end()) {
-        throw VehicleNotFoundError("Vehicle with license plate " + licensePlate + " not found");
+        throw VehicleNotFoundError(std::format("Vehicle with license plate {} not found", licensePlate));  // Исправлено: std::format
     }
-    
+
     auto lotIt = lots.find(lotId);
     if (lotIt == lots.end()) {
-        throw SpotNotFoundError("Parking lot with ID " + std::to_string(lotId) + " not found");
+        throw SpotNotFoundError(std::format("Parking lot with ID {} not found", lotId));  // Исправлено: std::format
     }
-    
+
     ParkingSpotData* spot = findSpot(lotIt->second, spotNumber);
     if (!spot) {
-        throw SpotNotFoundError("Parking spot " + std::to_string(spotNumber) + " not found");
+        throw SpotNotFoundError(std::format("Parking spot {} not found", spotNumber));  // Исправлено: std::format
     }
-    
+
     if (spot->isOccupied()) {
         throw SpotAlreadyOccupiedError();
     }
-    
+
     if (vehicleIt->isParked()) {
         throw VehicleAlreadyParkedError();
     }
-    
+
     if (!isSpotCompatible(*vehicleIt, *spot)) {
         throw IncompatibleSpotSizeError();
     }
-    
+
     spot->setOccupied(true);
-    spot->setVehicleLicensePlate(licensePlate);
-    
+    spot->setVehicleLicensePlate(std::string(licensePlate));
+
     return true;
 }
 
-bool ParkingService::releaseSpot(int lotId, 
-                                  int spotNumber,
-                                  std::map<int, ParkingLotData>& lots,
-                                  std::vector<VehicleData>& vehicles) {
+bool ParkingService::releaseSpot(int lotId,
+                                 int spotNumber,
+                                 std::map<int, ParkingLotData>& lots,
+                                 std::vector<VehicleData>& vehicles) {
     auto lotIt = lots.find(lotId);
     if (lotIt == lots.end()) {
-        throw SpotNotFoundError("Parking lot with ID " + std::to_string(lotId) + " not found");
+        throw SpotNotFoundError(std::format("Parking lot with ID {} not found", lotId));  // Исправлено: std::format
     }
-    
+
     ParkingSpotData* spot = findSpot(lotIt->second, spotNumber);
     if (!spot) {
-        throw SpotNotFoundError("Parking spot " + std::to_string(spotNumber) + " not found");
+        throw SpotNotFoundError(std::format("Parking spot {} not found", spotNumber));  // Исправлено: std::format
     }
-    
+
     if (!spot->isOccupied()) {
         throw SpotAlreadyFreeError();
     }
-    
+
     std::string licensePlate = spot->getVehicleLicensePlate();
     spot->setOccupied(false);
     spot->setVehicleLicensePlate("");
     spot->clearParkingTime();
-    
-    auto vehicleIt = std::find_if(vehicles.begin(), vehicles.end(),
-        [&licensePlate](VehicleData& v) { return v.getLicensePlate() == licensePlate; });
-    
-    if (vehicleIt != vehicles.end()) {
+
+    if (auto vehicleIt = std::ranges::find_if(vehicles,  // Исправлено: init-statement
+                                              [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
+        vehicleIt != vehicles.end()) {
         vehicleIt->setParked(false);
     }
-    
+
     return true;
 }
 

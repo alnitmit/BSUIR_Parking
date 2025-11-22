@@ -1,6 +1,8 @@
 #include "ParkingSpotData.h"
 
-ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::STANDARD) {}
+using enum ParkingSpotData::Size;  // Исправлено: using enum
+
+ParkingSpotData::ParkingSpotData() : number_(0), size_(STANDARD) {}  // Исправлено: using enum
 
 ParkingSpotData::ParkingSpotData(int number, Size size)
     : number_(number), size_(size) {}
@@ -23,9 +25,9 @@ void ParkingSpotData::setSize(Size size) {
 
 std::string ParkingSpotData::getSizeString() const {
     switch (size_) {
-    case Size::COMPACT: return "COMPACT";
-    case Size::STANDARD: return "STANDARD";
-    case Size::LARGE: return "LARGE";
+    case COMPACT: return "COMPACT";  // Исправлено: using enum
+    case STANDARD: return "STANDARD";
+    case LARGE: return "LARGE";
     default: return "STANDARD";
     }
 }
@@ -59,8 +61,8 @@ void ParkingSpotData::clearParkingTime() {
 }
 
 ParkingSpotData::Size ParkingSpotData::parseSize(std::string_view str) {
-    if (str == "COMPACT") return Size::COMPACT;
-    if (str == "STANDARD") return Size::STANDARD;
-    if (str == "LARGE") return Size::LARGE;
-    return Size::STANDARD;
+    if (str == "COMPACT") return COMPACT;  // Исправлено: using enum
+    if (str == "STANDARD") return STANDARD;
+    if (str == "LARGE") return LARGE;
+    return STANDARD;
 }

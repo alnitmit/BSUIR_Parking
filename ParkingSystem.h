@@ -12,6 +12,12 @@ public:
     ParkingSystem();
     ~ParkingSystem();
 
+    // Удаление копирования и перемещения
+    ParkingSystem(const ParkingSystem&) = delete;
+    ParkingSystem& operator=(const ParkingSystem&) = delete;
+    ParkingSystem(ParkingSystem&&) = delete;
+    ParkingSystem& operator=(ParkingSystem&&) = delete;
+
     bool addVehicle(const VehicleData& vehicle);
     bool removeVehicle(const std::string& licensePlate);
     VehicleData* findVehicle(const std::string& licensePlate);
@@ -33,8 +39,8 @@ public:
     int getFreeSpots() const;
     double getOccupancyRate() const;
 
-    bool saveState();
-    bool loadState();
+    bool saveState() const;  // Исправлено: const
+    bool loadState() const;  // Исправлено: const
 
 private:
     void initializeDefaultLots();

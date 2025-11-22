@@ -2,32 +2,33 @@
 #define VEHICLEDATA_H
 
 #include <string>
+#include <string_view>
 
 class VehicleData {
 public:
     VehicleData();
-    VehicleData(const std::string& type, const std::string& model, const std::string& licensePlate);
-    
+    VehicleData(std::string_view type, std::string_view model, std::string_view licensePlate);  // Исправлено: string_view
+
     std::string getType() const;
-    void setType(const std::string& type);
-    
+    void setType(std::string_view type);  // Исправлено: string_view
+
     std::string getModel() const;
-    void setModel(const std::string& model);
-    
+    void setModel(std::string_view model);  // Исправлено: string_view
+
     std::string getLicensePlate() const;
-    void setLicensePlate(const std::string& licensePlate);
-    
+    void setLicensePlate(std::string_view licensePlate);  // Исправлено: string_view
+
     bool isParked() const;
     void setParked(bool parked);
-    
+
     std::string getCargoType() const;
-    void setCargoType(const std::string& cargoType);
+    void setCargoType(std::string_view cargoType);  // Исправлено: string_view
 
 private:
     std::string type_;
     std::string model_;
     std::string licensePlate_;
-    bool isParked_;
+    bool isParked_ = false;  // Исправлено: инициализация в классе
     std::string cargoType_;
 };
 

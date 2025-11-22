@@ -33,7 +33,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1;
+    inline static int nextLotId_ = 1;  // Исправлено: inline переменная
 };
 
 #endif

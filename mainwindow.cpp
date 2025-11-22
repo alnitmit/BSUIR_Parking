@@ -34,8 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     updateParkingCombo();
     updateVehicleTable();
     updateStatistics();
-    QScreen *screen = QGuiApplication::primaryScreen();
-    if (screen) {
+    if (const QScreen* screen = QGuiApplication::primaryScreen()) {  // Исправлено: const указатель и init-statement
         QRect screenGeometry = screen->availableGeometry();
         move((screenGeometry.width() - width()) / 2, (screenGeometry.height() - height()) / 2);
     }
@@ -70,12 +69,12 @@ void MainWindow::setupUI()
         "QProgressBar { border: 2px solid #3498db; border-radius: 8px; text-align: center; color: #ecf0f1; font-weight: bold; background-color: #2c3e50; height: 20px; }"
         "QProgressBar::chunk { border-radius: 6px; }"
         );
-    QWidget *centralWidget = new QWidget(this);
+    auto centralWidget = new QWidget(this);  // Исправлено: auto
     setCentralWidget(centralWidget);
-    QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget);
+    auto mainLayout = new QHBoxLayout(centralWidget);  // Исправлено: auto
     setupLeftPanel();
     setupRightPanel();
-    QSplitter *splitter = new QSplitter(Qt::Horizontal, centralWidget);
+    auto splitter = new QSplitter(Qt::Horizontal, centralWidget);  // Исправлено: auto
     splitter->addWidget(leftPanel);
     splitter->addWidget(rightPanel);
     splitter->setStretchFactor(0, 1);
@@ -86,13 +85,14 @@ void MainWindow::setupUI()
 void MainWindow::setupLeftPanel()
 {
     leftPanel = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout(leftPanel);
+    auto layout = new QVBoxLayout(leftPanel);  // Исправлено: auto
     layout->setSpacing(16);
     layout->setContentsMargins(12, 12, 12, 12);
-    QGroupBox *parkingGroup = new QGroupBox(leftPanel);
+
+    auto parkingGroup = new QGroupBox(leftPanel);  // Исправлено: auto
     parkingGroup->setTitle("");
-    QVBoxLayout *parkingLayout = new QVBoxLayout(parkingGroup);
-    QLabel *parkingLabel = new QLabel("Выберите парковку:", parkingGroup);
+    auto parkingLayout = new QVBoxLayout(parkingGroup);  // Исправлено: auto
+    auto parkingLabel = new QLabel("Выберите парковку:", parkingGroup);  // Исправлено: auto
     parkingLabel->setWordWrap(true);
     parkingCombo = new QComboBox(parkingGroup);
     btnCreateParking = new QPushButton("➕ Создать парковку", parkingGroup);
@@ -103,9 +103,10 @@ void MainWindow::setupLeftPanel()
     parkingLayout->addWidget(parkingCombo);
     parkingLayout->addWidget(btnCreateParking);
     parkingLayout->addWidget(btnDeleteParking);
-    QGroupBox *vehicleGroup = new QGroupBox(leftPanel);
+
+    auto vehicleGroup = new QGroupBox(leftPanel);  // Исправлено: auto
     vehicleGroup->setTitle("");
-    QVBoxLayout *vehicleLayout = new QVBoxLayout(vehicleGroup);
+    auto vehicleLayout = new QVBoxLayout(vehicleGroup);  // Исправлено: auto
     btnAddVehicle = new QPushButton("➕ Добавить транспорт", vehicleGroup);
     btnRemoveVehicle = new QPushButton("🗑️ Удалить транспорт", vehicleGroup);
     btnParkVehicle = new QPushButton("🅿️ Припарковать", vehicleGroup);
@@ -118,9 +119,10 @@ void MainWindow::setupLeftPanel()
     vehicleLayout->addWidget(btnRemoveVehicle);
     vehicleLayout->addWidget(btnParkVehicle);
     vehicleLayout->addWidget(btnFreeSpot);
-    QGroupBox *statsGroup = new QGroupBox(leftPanel);
+
+    auto statsGroup = new QGroupBox(leftPanel);  // Исправлено: auto
     statsGroup->setTitle("");
-    QFormLayout *statsLayout = new QFormLayout(statsGroup);
+    auto statsLayout = new QFormLayout(statsGroup);  // Исправлено: auto
     totalSpotsLabel = new QLabel("0", statsGroup);
     occupiedSpotsLabel = new QLabel("0", statsGroup);
     freeSpotsLabel = new QLabel("0", statsGroup);
@@ -132,6 +134,7 @@ void MainWindow::setupLeftPanel()
     statsLayout->addRow("🟩 Свободно:", freeSpotsLabel);
     statsLayout->addRow("📈 Заполненность:", occupancyPercentLabel);
     statsLayout->addRow(occupancyBar);
+
     layout->addWidget(parkingGroup);
     layout->addWidget(vehicleGroup);
     layout->addWidget(statsGroup);
@@ -141,8 +144,8 @@ void MainWindow::setupLeftPanel()
 void MainWindow::setupRightPanel()
 {
     rightPanel = new QWidget(this);
-    QVBoxLayout *layout = new QVBoxLayout(rightPanel);
-    QHBoxLayout *infoLayout = new QHBoxLayout();
+    auto layout = new QVBoxLayout(rightPanel);  // Исправлено: auto
+    auto infoLayout = new QHBoxLayout();  // Исправлено: auto
     parkingNameLabel = new QLabel("🏢 Парковка не выбрана");
     spotsInfoLabel = new QLabel("📍 Места: -/-");
     occupancyInfoLabel = new QLabel("📊 Заполненность: -");
@@ -153,16 +156,18 @@ void MainWindow::setupRightPanel()
     infoLayout->addWidget(spotsInfoLabel);
     infoLayout->addWidget(occupancyInfoLabel);
     infoLayout->addStretch();
+
     mainTabs = new QTabWidget(rightPanel);
-    QWidget *visualizationTab = new QWidget();
-    QVBoxLayout *vizLayout = new QVBoxLayout(visualizationTab);
+    auto visualizationTab = new QWidget();  // Исправлено: auto
+    auto vizLayout = new QVBoxLayout(visualizationTab);  // Исправлено: auto
     parkingLotView = new ParkingLotView(visualizationTab);
     parkingScrollArea = new QScrollArea(visualizationTab);
     parkingScrollArea->setWidget(parkingLotView);
     parkingScrollArea->setWidgetResizable(true);
     vizLayout->addWidget(parkingScrollArea);
-    QWidget *tableTab = new QWidget();
-    QVBoxLayout *tableLayout = new QVBoxLayout(tableTab);
+
+    auto tableTab = new QWidget();  // Исправлено: auto
+    auto tableLayout = new QVBoxLayout(tableTab);  // Исправлено: auto
     vehicleTable = new QTableWidget(tableTab);
     vehicleTable->setColumnCount(5);
     vehicleTable->setHorizontalHeaderLabels({"🚗 Тип", "📋 Модель", "🔢 Номер", "📊 Статус", "🅿️ Парковка"});
@@ -177,6 +182,7 @@ void MainWindow::setupRightPanel()
         "QTableCornerButton::section { background-color: #34495e; border: none; }"
         );
     tableLayout->addWidget(vehicleTable);
+
     mainTabs->addTab(visualizationTab, "🗺️ Визуализация парковки");
     mainTabs->addTab(tableTab, "📋 Список транспорта");
     layout->addLayout(infoLayout);
@@ -209,6 +215,8 @@ void MainWindow::onCreateParking()
         } else {
             ModernDialog::showError("Ошибка", "Не удалось создать парковку", this);
         }
+    } catch (const DuplicateVehicleError& e) {  // Исправлено: конкретное исключение
+        ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -271,6 +279,8 @@ void MainWindow::onAddVehicle()
         } else {
             ModernDialog::showWarning("Внимание", "Транспорт с таким номером уже существует", this);
         }
+    } catch (const DuplicateVehicleError& e) {  // Исправлено: конкретное исключение
+        ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -293,6 +303,8 @@ void MainWindow::onRemoveVehicle()
             } else {
                 ModernDialog::showError("Ошибка", "Транспорт не найден", this);
             }
+        } catch (const VehicleNotFoundError& e) {  // Исправлено: конкретное исключение
+            ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         } catch (const std::exception& e) {
             ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         }
@@ -390,18 +402,17 @@ void MainWindow::onParkingLotChanged(int index)
     }
 }
 
-void MainWindow::updateVehicleTable()
-{
+void MainWindow::updateVehicleTable() const {  // Исправлено: const
     vehicleTable->setRowCount(0);
     const auto& vehicles = parkingSystem_.getVehicles();
     for (const auto& vehicle : vehicles) {
         int row = vehicleTable->rowCount();
         vehicleTable->insertRow(row);
-        QTableWidgetItem* typeItem = new QTableWidgetItem(QString::fromStdString(vehicle.getType()));
-        QTableWidgetItem* modelItem = new QTableWidgetItem(QString::fromStdString(vehicle.getModel()));
-        QTableWidgetItem* plateItem = new QTableWidgetItem(QString::fromStdString(vehicle.getLicensePlate()));
+        auto typeItem = new QTableWidgetItem(QString::fromStdString(vehicle.getType()));  // Исправлено: auto
+        auto modelItem = new QTableWidgetItem(QString::fromStdString(vehicle.getModel()));  // Исправлено: auto
+        auto plateItem = new QTableWidgetItem(QString::fromStdString(vehicle.getLicensePlate()));  // Исправлено: auto
         QString statusText = vehicle.isParked() ? "🟥 Припаркован" : "🟩 Свободен";
-        QTableWidgetItem* statusItem = new QTableWidgetItem(statusText);
+        auto statusItem = new QTableWidgetItem(statusText);  // Исправлено: auto
         typeItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         modelItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         plateItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -425,7 +436,7 @@ void MainWindow::updateVehicleTable()
                 }
             }
         }
-        QTableWidgetItem* parkingItem = new QTableWidgetItem(parkingInfo);
+        auto parkingItem = new QTableWidgetItem(parkingInfo);  // Исправлено: auto
         parkingItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         parkingItem->setForeground(Qt::white);
         vehicleTable->setItem(row, 4, parkingItem);
