@@ -1,9 +1,6 @@
 #include "VehicleData.h"
 #include <string_view>
 
-VehicleData::VehicleData()  // Исправлено: инициализация в классе
-{}
-
 VehicleData::VehicleData(std::string_view type, std::string_view model, std::string_view licensePlate)  // Исправлено: string_view
     : type_(type), model_(model), licensePlate_(licensePlate) {}
 

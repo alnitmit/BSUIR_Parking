@@ -9,18 +9,23 @@ class ParkingLotData {
 public:
     ParkingLotData();
     ParkingLotData(int id, const std::string& name);
-    
+
     int getId() const;
     void setId(int id);
-    
-    std::string getName() const;
+
+    std::string getName() const;  // Исправлено: убрана ссылка
     void setName(const std::string& name);
-    
+
     std::vector<ParkingSpotData>& getSpots();
     const std::vector<ParkingSpotData>& getSpots() const;
-    
+
     void addSpot(const ParkingSpotData& spot);
     void clearSpots();
+
+    // Добавлены отсутствующие методы
+    void removeSpot(int spotNumber);
+    ParkingSpotData* getSpot(int spotNumber);
+    const ParkingSpotData* getSpot(int spotNumber) const;
 
 private:
     int id_;

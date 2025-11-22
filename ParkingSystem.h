@@ -12,7 +12,6 @@ public:
     ParkingSystem();
     ~ParkingSystem();
 
-    // Удаление копирования и перемещения
     ParkingSystem(const ParkingSystem&) = delete;
     ParkingSystem& operator=(const ParkingSystem&) = delete;
     ParkingSystem(ParkingSystem&&) = delete;
@@ -39,11 +38,10 @@ public:
     int getFreeSpots() const;
     double getOccupancyRate() const;
 
-    bool saveState() const;  // Исправлено: const
-    bool loadState() const;  // Исправлено: const
+    bool saveState() const;
+    bool loadState() const;
 
 private:
     void initializeDefaultLots();
 };
-
 #endif

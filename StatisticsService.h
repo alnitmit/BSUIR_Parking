@@ -6,7 +6,7 @@
 
 class ParkingStatistics {
 public:
-    ParkingStatistics() = default;  // Исправлено: = default
+    ParkingStatistics() = default;
 
     int getTotalSpots() const;
     void setTotalSpots(int totalSpots);

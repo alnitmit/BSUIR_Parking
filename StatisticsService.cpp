@@ -1,9 +1,7 @@
 #include "StatisticsService.h"
 #include <algorithm>
-#include <ranges>
 
-ParkingStatistics::ParkingStatistics()  // Исправлено: инициализация в классе
-{}
+// Убираем определение конструктора, так как он = default в заголовке
 
 int ParkingStatistics::getTotalSpots() const {
     return totalSpots_;
@@ -45,8 +43,9 @@ ParkingStatistics StatisticsService::calculateStatistics(const std::map<int, Par
 
     for (const auto& [id, lot] : lots) {
         totalSpots += static_cast<int>(lot.getSpots().size());
-        occupiedSpots += std::ranges::count_if(lot.getSpots(),  // Исправлено: ranges::count_if
-                                               [](const ParkingSpotData& s) { return s.isOccupied(); });
+        // Заменяем std::ranges::count_if на std::count_if
+        occupiedSpots += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
+                                       [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
 
     stats.setTotalSpots(totalSpots);
@@ -72,8 +71,9 @@ int StatisticsService::getTotalSpots(const std::map<int, ParkingLotData>& lots) 
 int StatisticsService::getOccupiedSpots(const std::map<int, ParkingLotData>& lots) {
     int occupied = 0;
     for (const auto& [id, lot] : lots) {
-        occupied += std::ranges::count_if(lot.getSpots(),  // Исправлено: ranges::count_if
-                                          [](const ParkingSpotData& s) { return s.isOccupied(); });
+        // Заменяем std::ranges::count_if на std::count_if
+        occupied += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
+                                  [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
     return occupied;
 }

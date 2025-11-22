@@ -4,8 +4,6 @@
 #include <QPainter>
 #include <QLinearGradient>
 
-using enum ModernDialog::DialogType;  // Исправлено: using enum
-
 ModernDialog::ModernDialog(DialogType type, const QString& title, const QString& message, QWidget* parent)
     : QDialog(parent)
 {
@@ -19,33 +17,33 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
 {
     setFixedSize(400, 280);
 
-    auto mainFrame = new QFrame(this);  // Исправлено: auto
+    auto mainFrame = new QFrame(this);
     mainFrame->setObjectName("mainFrame");
     mainFrame->setStyleSheet(getStyleSheet(type));
 
-    auto shadowEffect = new QGraphicsDropShadowEffect(this);  // Исправлено: auto
+    auto shadowEffect = new QGraphicsDropShadowEffect(this);
     shadowEffect->setBlurRadius(20);
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 5);
     mainFrame->setGraphicsEffect(shadowEffect);
 
-    auto mainLayout = new QVBoxLayout(this);  // Исправлено: auto
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(20, 20, 20, 20);
     mainLayout->addWidget(mainFrame);
 
-    auto frameLayout = new QVBoxLayout(mainFrame);  // Исправлено: auto
+    auto frameLayout = new QVBoxLayout(mainFrame);
     frameLayout->setContentsMargins(30, 30, 30, 25);
     frameLayout->setSpacing(20);
 
-    auto headerLayout = new QHBoxLayout();  // Исправлено: auto
+    auto headerLayout = new QHBoxLayout();
     headerLayout->setSpacing(15);
 
-    auto iconLabel = new QLabel();  // Исправлено: auto
+    auto iconLabel = new QLabel();
     iconLabel->setText(getIcon(type));
     iconLabel->setStyleSheet("QLabel { font-size: 40px; background: transparent; }");
     iconLabel->setFixedSize(50, 50);
 
-    auto titleLabel = new QLabel(title);  // Исправлено: auto
+    auto titleLabel = new QLabel(title);
     titleLabel->setStyleSheet("QLabel { color: white; font-size: 18px; font-weight: bold; background: transparent; }");
     titleLabel->setWordWrap(true);
 
@@ -54,7 +52,7 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
     headerLayout->setStretchFactor(titleLabel, 1);
     frameLayout->addLayout(headerLayout);
 
-    auto messageLabel = new QLabel(message);  // Исправлено: auto
+    auto messageLabel = new QLabel(message);
     messageLabel->setStyleSheet("QLabel { color: rgba(255,255,255,0.9); font-size: 14px; line-height: 1.4; background: transparent; }");
     messageLabel->setWordWrap(true);
     messageLabel->setAlignment(Qt::AlignLeft);
@@ -62,10 +60,10 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
 
     frameLayout->addStretch();
 
-    auto buttonLayout = new QHBoxLayout();  // Исправлено: auto
+    auto buttonLayout = new QHBoxLayout();
     buttonLayout->setSpacing(15);
 
-    if (type == Question) {  // Исправлено: using enum
+    if (type == DialogType::Question) {
         btnYes = new QPushButton("✓ Да");
         btnNo = new QPushButton("✗ Нет");
         btnYes->setStyleSheet("QPushButton { background: qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #27ae60,stop:1 #219a52); color:white; font-weight:bold; border-radius:8px; padding:10px 20px; font-size:14px; border:none; min-width:80px; } QPushButton:hover{background:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #2ecc71,stop:1 #27ae60);} QPushButton:pressed{background:#219a52;}");
@@ -89,11 +87,11 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
 QString ModernDialog::getIcon(DialogType type) const
 {
     switch (type) {
-    case Info: return "💡";  // Исправлено: using enum
-    case Success: return "✅";
-    case Warning: return "⚠️";
-    case Error: return "❌";
-    case Question: return "❓";
+    case DialogType::Info: return "💡";
+    case DialogType::Success: return "✅";
+    case DialogType::Warning: return "⚠️";
+    case DialogType::Error: return "❌";
+    case DialogType::Question: return "❓";
     default: return "💡";
     }
 }
@@ -102,11 +100,11 @@ QString ModernDialog::getStyleSheet(DialogType type) const
 {
     QString gradient;
     switch (type) {
-    case Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
-    case Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
-    case Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
-    case Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
-    case Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
+    case DialogType::Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
+    case DialogType::Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
+    case DialogType::Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
+    case DialogType::Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
+    case DialogType::Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
     default: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)";
     }
     return QString("QFrame#mainFrame { background:%1; border-radius:15px; border:1px solid rgba(255,255,255,0.2);}").arg(gradient);
@@ -118,11 +116,11 @@ void ModernDialog::showEvent(QShowEvent* event)
     if (parentWidget()) {
         move(parentWidget()->mapToGlobal(parentWidget()->rect().center()) - rect().center());
     } else {
-        const QScreen* screen = QApplication::primaryScreen();  // Исправлено: const указатель
+        const QScreen* screen = QApplication::primaryScreen();
         if (screen) move(screen->geometry().center() - rect().center());
     }
 
-    auto animation = new QPropertyAnimation(this, "windowOpacity");  // Исправлено: auto
+    auto animation = new QPropertyAnimation(this, "windowOpacity");
     animation->setDuration(200);
     animation->setStartValue(0);
     animation->setEndValue(1);
@@ -151,30 +149,30 @@ void ModernDialog::onNoClicked()
 
 void ModernDialog::showInfo(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Info, title, message, parent);  // Исправлено: using enum
+    ModernDialog dialog(DialogType::Info, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showSuccess(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Success, title, message, parent);  // Исправлено: using enum
+    ModernDialog dialog(DialogType::Success, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showWarning(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Warning, title, message, parent);  // Исправлено: using enum
+    ModernDialog dialog(DialogType::Warning, title, message, parent);
     dialog.exec();
 }
 
 void ModernDialog::showError(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Error, title, message, parent);  // Исправлено: using enum
+    ModernDialog dialog(DialogType::Error, title, message, parent);
     dialog.exec();
 }
 
 bool ModernDialog::showQuestion(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(Question, title, message, parent);  // Исправлено: using enum
+    ModernDialog dialog(DialogType::Question, title, message, parent);
     return dialog.exec() == QDialog::Accepted && dialog.result;
 }

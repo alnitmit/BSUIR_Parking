@@ -552,7 +552,7 @@ void MainWindow::updateParkingView()
     for (const auto& spot : lot->getSpots()) {
         ParkingSpotVisual visual;
         visual.number = spot.getNumber();
-        visual.isOccupied = spot.isOccupied();
+        visual.occupied = spot.isOccupied();
 
         if (spot.isOccupied()) {
             const VehicleData* vehicle = parkingSystem_.findVehicle(spot.getVehicleLicensePlate());

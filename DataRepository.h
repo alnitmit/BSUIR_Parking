@@ -20,6 +20,7 @@ public:
     const std::map<int, ParkingLotData>& getParkingLots() const { return lots_; }
     int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
+    void setNextLotId(int id) { nextLotId_ = id; } // Добавлен метод setNextLotId
     void clear();
 
 private:
@@ -30,7 +31,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1;  // Исправлено: inline static
+    inline static int nextLotId_ = 1;
 };
 
 #endif

@@ -1,39 +1,49 @@
 #include "VehicleService.h"
-#include "DuplicateVehicleError.h"
-#include "VehicleNotFoundError.h"
 #include <algorithm>
-#include <ranges>
-#include <memory>
 
-bool VehicleService::addVehicle(const VehicleData& vehicle, std::vector<VehicleData>& vehicles) {  // Исправлено: const ссылка
-    if (findVehicle(vehicle.getLicensePlate(), vehicles)) {
-        throw DuplicateVehicleError("Vehicle with license plate " + vehicle.getLicensePlate() + " already exists");
+bool VehicleService::addVehicle(VehicleData vehicle, std::vector<VehicleData>& vehicles) {
+    auto it = std::find_if(vehicles.begin(), vehicles.end(),
+                           [&vehicle](const VehicleData& v) {
+                               return v.getLicensePlate() == vehicle.getLicensePlate();
+                           });
+
+    if (it != vehicles.end()) {
+        return false;
     }
+
     vehicles.push_back(vehicle);
     return true;
 }
 
 bool VehicleService::removeVehicle(const std::string& licensePlate, std::vector<VehicleData>& vehicles) {
-    auto it = std::ranges::remove_if(vehicles,  // Исправлено: ranges::remove_if
-                                     [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
+    auto it = std::remove_if(vehicles.begin(), vehicles.end(),
+                             [&licensePlate](const VehicleData& vehicle) {
+                                 return vehicle.getLicensePlate() == licensePlate;
+                             });
 
     if (it != vehicles.end()) {
-        vehicles.erase(it.begin(), vehicles.end());
+        vehicles.erase(it, vehicles.end());
         return true;
     }
     return false;
 }
 
 VehicleData* VehicleService::findVehicle(const std::string& licensePlate, std::vector<VehicleData>& vehicles) {
-    auto it = std::ranges::find_if(vehicles,  // Исправлено: ranges::find_if
-                                   [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
-    return (it != vehicles.end()) ? std::to_address(it) : nullptr;  // Исправлено: to_address
+    auto it = std::find_if(vehicles.begin(), vehicles.end(),
+                           [&licensePlate](const VehicleData& vehicle) {
+                               return vehicle.getLicensePlate() == licensePlate;
+                           });
+
+    return (it != vehicles.end()) ? &(*it) : nullptr;
 }
 
 const VehicleData* VehicleService::findVehicle(const std::string& licensePlate, const std::vector<VehicleData>& vehicles) {
-    auto it = std::ranges::find_if(vehicles,  // Исправлено: ranges::find_if
-                                   [&licensePlate](const VehicleData& v) { return v.getLicensePlate() == licensePlate; });
-    return (it != vehicles.end()) ? std::to_address(it) : nullptr;  // Исправлено: to_address
+    auto it = std::find_if(vehicles.begin(), vehicles.end(),
+                           [&licensePlate](const VehicleData& vehicle) {
+                               return vehicle.getLicensePlate() == licensePlate;
+                           });
+
+    return (it != vehicles.end()) ? &(*it) : nullptr;
 }
 
 bool VehicleService::isVehicleParked(const std::string& licensePlate, const std::vector<VehicleData>& vehicles) {
