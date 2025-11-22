@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     updateParkingCombo();
     updateVehicleTable();
     updateStatistics();
-    if (const QScreen* screen = QGuiApplication::primaryScreen()) {  // Исправлено: const указатель и init-statement
+    if (const QScreen* screen = QGuiApplication::primaryScreen()) {
         QRect screenGeometry = screen->availableGeometry();
         move((screenGeometry.width() - width()) / 2, (screenGeometry.height() - height()) / 2);
     }
@@ -69,14 +69,14 @@ void MainWindow::setupUI()
         "QProgressBar { border: 2px solid #3498db; border-radius: 8px; text-align: center; color: #ecf0f1; font-weight: bold; background-color: #2c3e50; height: 20px; }"
         "QProgressBar::chunk { border-radius: 6px; }"
         );
-    auto centralWidget = new QWidget(this);  // Исправлено: auto
+    auto centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
-    auto mainLayout = new QHBoxLayout(centralWidget);  // Исправлено: auto
+    auto mainLayout = new QHBoxLayout(centralWidget);
     setupLeftPanel();
     setupRightPanel();
-    auto splitter = new QSplitter(Qt::Horizontal, centralWidget);  // Исправлено: auto
-    splitter->addWidget(leftPanel);
-    splitter->addWidget(rightPanel);
+    auto splitter = new QSplitter(Qt::Horizontal, centralWidget);
+    splitter->addWidget(leftPanel_.panel);
+    splitter->addWidget(rightPanel_.panel);
     splitter->setStretchFactor(0, 1);
     splitter->setStretchFactor(1, 3);
     mainLayout->addWidget(splitter);
@@ -84,56 +84,56 @@ void MainWindow::setupUI()
 
 void MainWindow::setupLeftPanel()
 {
-    leftPanel = new QWidget(this);
-    auto layout = new QVBoxLayout(leftPanel);  // Исправлено: auto
+    leftPanel_.panel = new QWidget(this);
+    auto layout = new QVBoxLayout(leftPanel_.panel);
     layout->setSpacing(16);
     layout->setContentsMargins(12, 12, 12, 12);
 
-    auto parkingGroup = new QGroupBox(leftPanel);  // Исправлено: auto
+    auto parkingGroup = new QGroupBox(leftPanel_.panel);
     parkingGroup->setTitle("");
-    auto parkingLayout = new QVBoxLayout(parkingGroup);  // Исправлено: auto
-    auto parkingLabel = new QLabel("Выберите парковку:", parkingGroup);  // Исправлено: auto
+    auto parkingLayout = new QVBoxLayout(parkingGroup);
+    auto parkingLabel = new QLabel("Выберите парковку:", parkingGroup);
     parkingLabel->setWordWrap(true);
-    parkingCombo = new QComboBox(parkingGroup);
-    btnCreateParking = new QPushButton("➕ Создать парковку", parkingGroup);
-    btnDeleteParking = new QPushButton("🗑️ Удалить парковку", parkingGroup);
-    btnCreateParking->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2ecc71, stop:1 #27ae60); }");
-    btnDeleteParking->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e74c3c, stop:1 #c0392b); }");
+    leftPanel_.parkingCombo = new QComboBox(parkingGroup);
+    leftPanel_.btnCreateParking = new QPushButton("➕ Создать парковку", parkingGroup);
+    leftPanel_.btnDeleteParking = new QPushButton("🗑️ Удалить парковку", parkingGroup);
+    leftPanel_.btnCreateParking->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2ecc71, stop:1 #27ae60); }");
+    leftPanel_.btnDeleteParking->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e74c3c, stop:1 #c0392b); }");
     parkingLayout->addWidget(parkingLabel);
-    parkingLayout->addWidget(parkingCombo);
-    parkingLayout->addWidget(btnCreateParking);
-    parkingLayout->addWidget(btnDeleteParking);
+    parkingLayout->addWidget(leftPanel_.parkingCombo);
+    parkingLayout->addWidget(leftPanel_.btnCreateParking);
+    parkingLayout->addWidget(leftPanel_.btnDeleteParking);
 
-    auto vehicleGroup = new QGroupBox(leftPanel);  // Исправлено: auto
+    auto vehicleGroup = new QGroupBox(leftPanel_.panel);
     vehicleGroup->setTitle("");
-    auto vehicleLayout = new QVBoxLayout(vehicleGroup);  // Исправлено: auto
-    btnAddVehicle = new QPushButton("➕ Добавить транспорт", vehicleGroup);
-    btnRemoveVehicle = new QPushButton("🗑️ Удалить транспорт", vehicleGroup);
-    btnParkVehicle = new QPushButton("🅿️ Припарковать", vehicleGroup);
-    btnFreeSpot = new QPushButton("🔓 Освободить место", vehicleGroup);
-    btnAddVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3498db, stop:1 #2980b9); }");
-    btnRemoveVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e74c3c, stop:1 #c0392b); }");
-    btnParkVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #9b59b6, stop:1 #8e44ad); }");
-    btnFreeSpot->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f39c12, stop:1 #d35400); }");
-    vehicleLayout->addWidget(btnAddVehicle);
-    vehicleLayout->addWidget(btnRemoveVehicle);
-    vehicleLayout->addWidget(btnParkVehicle);
-    vehicleLayout->addWidget(btnFreeSpot);
+    auto vehicleLayout = new QVBoxLayout(vehicleGroup);
+    leftPanel_.btnAddVehicle = new QPushButton("➕ Добавить транспорт", vehicleGroup);
+    leftPanel_.btnRemoveVehicle = new QPushButton("🗑️ Удалить транспорт", vehicleGroup);
+    leftPanel_.btnParkVehicle = new QPushButton("🅿️ Припарковать", vehicleGroup);
+    leftPanel_.btnFreeSpot = new QPushButton("🔓 Освободить место", vehicleGroup);
+    leftPanel_.btnAddVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3498db, stop:1 #2980b9); }");
+    leftPanel_.btnRemoveVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e74c3c, stop:1 #c0392b); }");
+    leftPanel_.btnParkVehicle->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #9b59b6, stop:1 #8e44ad); }");
+    leftPanel_.btnFreeSpot->setStyleSheet("QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f39c12, stop:1 #d35400); }");
+    vehicleLayout->addWidget(leftPanel_.btnAddVehicle);
+    vehicleLayout->addWidget(leftPanel_.btnRemoveVehicle);
+    vehicleLayout->addWidget(leftPanel_.btnParkVehicle);
+    vehicleLayout->addWidget(leftPanel_.btnFreeSpot);
 
-    auto statsGroup = new QGroupBox(leftPanel);  // Исправлено: auto
+    auto statsGroup = new QGroupBox(leftPanel_.panel);
     statsGroup->setTitle("");
-    auto statsLayout = new QFormLayout(statsGroup);  // Исправлено: auto
-    totalSpotsLabel = new QLabel("0", statsGroup);
-    occupiedSpotsLabel = new QLabel("0", statsGroup);
-    freeSpotsLabel = new QLabel("0", statsGroup);
-    occupancyPercentLabel = new QLabel("0%", statsGroup);
-    occupancyBar = new QProgressBar(statsGroup);
-    occupancyBar->setTextVisible(true);
-    statsLayout->addRow("📍 Всего мест:", totalSpotsLabel);
-    statsLayout->addRow("🟥 Занято:", occupiedSpotsLabel);
-    statsLayout->addRow("🟩 Свободно:", freeSpotsLabel);
-    statsLayout->addRow("📈 Заполненность:", occupancyPercentLabel);
-    statsLayout->addRow(occupancyBar);
+    auto statsLayout = new QFormLayout(statsGroup);
+    stats_.totalSpotsLabel = new QLabel("0", statsGroup);
+    stats_.occupiedSpotsLabel = new QLabel("0", statsGroup);
+    stats_.freeSpotsLabel = new QLabel("0", statsGroup);
+    stats_.occupancyPercentLabel = new QLabel("0%", statsGroup);
+    stats_.occupancyBar = new QProgressBar(statsGroup);
+    stats_.occupancyBar->setTextVisible(true);
+    statsLayout->addRow("📍 Всего мест:", stats_.totalSpotsLabel);
+    statsLayout->addRow("🟥 Занято:", stats_.occupiedSpotsLabel);
+    statsLayout->addRow("🟩 Свободно:", stats_.freeSpotsLabel);
+    statsLayout->addRow("📈 Заполненность:", stats_.occupancyPercentLabel);
+    statsLayout->addRow(stats_.occupancyBar);
 
     layout->addWidget(parkingGroup);
     layout->addWidget(vehicleGroup);
@@ -143,37 +143,37 @@ void MainWindow::setupLeftPanel()
 
 void MainWindow::setupRightPanel()
 {
-    rightPanel = new QWidget(this);
-    auto layout = new QVBoxLayout(rightPanel);  // Исправлено: auto
-    auto infoLayout = new QHBoxLayout();  // Исправлено: auto
-    parkingNameLabel = new QLabel("🏢 Парковка не выбрана");
-    spotsInfoLabel = new QLabel("📍 Места: -/-");
-    occupancyInfoLabel = new QLabel("📊 Заполненность: -");
-    parkingNameLabel->setStyleSheet("font-weight: bold; font-size: 16px; color: #f1f1f1;");
-    spotsInfoLabel->setStyleSheet("color: #bdc3c7;");
-    occupancyInfoLabel->setStyleSheet("color: #bdc3c7;");
-    infoLayout->addWidget(parkingNameLabel);
-    infoLayout->addWidget(spotsInfoLabel);
-    infoLayout->addWidget(occupancyInfoLabel);
+    rightPanel_.panel = new QWidget(this);
+    auto layout = new QVBoxLayout(rightPanel_.panel);
+    auto infoLayout = new QHBoxLayout();
+    rightPanel_.parkingNameLabel = new QLabel("🏢 Парковка не выбрана");
+    rightPanel_.spotsInfoLabel = new QLabel("📍 Места: -/-");
+    rightPanel_.occupancyInfoLabel = new QLabel("📊 Заполненность: -");
+    rightPanel_.parkingNameLabel->setStyleSheet("font-weight: bold; font-size: 16px; color: #f1f1f1;");
+    rightPanel_.spotsInfoLabel->setStyleSheet("color: #bdc3c7;");
+    rightPanel_.occupancyInfoLabel->setStyleSheet("color: #bdc3c7;");
+    infoLayout->addWidget(rightPanel_.parkingNameLabel);
+    infoLayout->addWidget(rightPanel_.spotsInfoLabel);
+    infoLayout->addWidget(rightPanel_.occupancyInfoLabel);
     infoLayout->addStretch();
 
-    mainTabs = new QTabWidget(rightPanel);
-    auto visualizationTab = new QWidget();  // Исправлено: auto
-    auto vizLayout = new QVBoxLayout(visualizationTab);  // Исправлено: auto
-    parkingLotView = new ParkingLotView(visualizationTab);
-    parkingScrollArea = new QScrollArea(visualizationTab);
-    parkingScrollArea->setWidget(parkingLotView);
-    parkingScrollArea->setWidgetResizable(true);
-    vizLayout->addWidget(parkingScrollArea);
+    rightPanel_.mainTabs = new QTabWidget(rightPanel_.panel);
+    auto visualizationTab = new QWidget();
+    auto vizLayout = new QVBoxLayout(visualizationTab);
+    rightPanel_.parkingLotView = new ParkingLotView(visualizationTab);
+    rightPanel_.parkingScrollArea = new QScrollArea(visualizationTab);
+    rightPanel_.parkingScrollArea->setWidget(rightPanel_.parkingLotView);
+    rightPanel_.parkingScrollArea->setWidgetResizable(true);
+    vizLayout->addWidget(rightPanel_.parkingScrollArea);
 
-    auto tableTab = new QWidget();  // Исправлено: auto
-    auto tableLayout = new QVBoxLayout(tableTab);  // Исправлено: auto
-    vehicleTable = new QTableWidget(tableTab);
-    vehicleTable->setColumnCount(5);
-    vehicleTable->setHorizontalHeaderLabels({"🚗 Тип", "📋 Модель", "🔢 Номер", "📊 Статус", "🅿️ Парковка"});
-    vehicleTable->horizontalHeader()->setStretchLastSection(true);
-    vehicleTable->setAlternatingRowColors(true);
-    vehicleTable->setStyleSheet(
+    auto tableTab = new QWidget();
+    auto tableLayout = new QVBoxLayout(tableTab);
+    rightPanel_.vehicleTable = new QTableWidget(tableTab);
+    rightPanel_.vehicleTable->setColumnCount(5);
+    rightPanel_.vehicleTable->setHorizontalHeaderLabels({"🚗 Тип", "📋 Модель", "🔢 Номер", "📊 Статус", "🅿️ Парковка"});
+    rightPanel_.vehicleTable->horizontalHeader()->setStretchLastSection(true);
+    rightPanel_.vehicleTable->setAlternatingRowColors(true);
+    rightPanel_.vehicleTable->setStyleSheet(
         "QTableWidget { background-color: #1f2530; alternate-background-color: #232a36; gridline-color: #34495e; border: 1px solid #3498db; border-radius: 8px; }"
         "QTableWidget::item { color: white; padding: 8px; border: none; border-bottom: 1px solid #34495e; }"
         "QTableWidget::item:selected { background-color: #3498db; color: white; }"
@@ -181,24 +181,24 @@ void MainWindow::setupRightPanel()
         "QHeaderView::section:last { border-right: none; }"
         "QTableCornerButton::section { background-color: #34495e; border: none; }"
         );
-    tableLayout->addWidget(vehicleTable);
+    tableLayout->addWidget(rightPanel_.vehicleTable);
 
-    mainTabs->addTab(visualizationTab, "🗺️ Визуализация парковки");
-    mainTabs->addTab(tableTab, "📋 Список транспорта");
+    rightPanel_.mainTabs->addTab(visualizationTab, "🗺️ Визуализация парковки");
+    rightPanel_.mainTabs->addTab(tableTab, "📋 Список транспорта");
     layout->addLayout(infoLayout);
-    layout->addWidget(mainTabs);
+    layout->addWidget(rightPanel_.mainTabs);
 }
 
-void MainWindow::setupConnections()
+void MainWindow::setupConnections() const
 {
-    connect(btnCreateParking, &QPushButton::clicked, this, &MainWindow::onCreateParking);
-    connect(btnDeleteParking, &QPushButton::clicked, this, &MainWindow::onDeleteParking);
-    connect(btnAddVehicle, &QPushButton::clicked, this, &MainWindow::onAddVehicle);
-    connect(btnRemoveVehicle, &QPushButton::clicked, this, &MainWindow::onRemoveVehicle);
-    connect(btnParkVehicle, &QPushButton::clicked, this, &MainWindow::onParkVehicle);
-    connect(btnFreeSpot, &QPushButton::clicked, this, &MainWindow::onFreeSpot);
-    connect(parkingCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::onParkingLotChanged);
-    connect(parkingLotView, &ParkingLotView::spotClicked, this, &MainWindow::onSpotClicked);
+    connect(leftPanel_.btnCreateParking, &QPushButton::clicked, this, &MainWindow::onCreateParking);
+    connect(leftPanel_.btnDeleteParking, &QPushButton::clicked, this, &MainWindow::onDeleteParking);
+    connect(leftPanel_.btnAddVehicle, &QPushButton::clicked, this, &MainWindow::onAddVehicle);
+    connect(leftPanel_.btnRemoveVehicle, &QPushButton::clicked, this, &MainWindow::onRemoveVehicle);
+    connect(leftPanel_.btnParkVehicle, &QPushButton::clicked, this, &MainWindow::onParkVehicle);
+    connect(leftPanel_.btnFreeSpot, &QPushButton::clicked, this, &MainWindow::onFreeSpot);
+    connect(leftPanel_.parkingCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::onParkingLotChanged);
+    connect(rightPanel_.parkingLotView, &ParkingLotView::spotClicked, this, &MainWindow::onSpotClicked);
 }
 
 void MainWindow::onCreateParking()
@@ -211,12 +211,14 @@ void MainWindow::onCreateParking()
         if (parkingSystem_.createParkingLot(name.toStdString(), spots)) {
             ModernDialog::showSuccess("Готово", "Парковка '" + name + "' успешно создана!", this);
             updateParkingCombo();
-            parkingCombo->setCurrentIndex(parkingCombo->count() - 1);
+            leftPanel_.parkingCombo->setCurrentIndex(leftPanel_.parkingCombo->count() - 1);
         } else {
             ModernDialog::showError("Ошибка", "Не удалось создать парковку", this);
         }
-    } catch (const DuplicateVehicleError& e) {  // Исправлено: конкретное исключение
+    } catch (const DuplicateVehicleError& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
+    } catch (const FileIOException& e) {
+        ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -224,12 +226,12 @@ void MainWindow::onCreateParking()
 
 void MainWindow::onDeleteParking()
 {
-    if (parkingCombo->currentIndex() < 0) {
+    if (leftPanel_.parkingCombo->currentIndex() < 0) {
         ModernDialog::showWarning("Внимание", "Не выбрана парковка для удаления", this);
         return;
     }
-    int lotId = parkingCombo->currentData().toInt();
-    QString lotName = parkingCombo->currentText();
+    int lotId = leftPanel_.parkingCombo->currentData().toInt();
+    QString lotName = leftPanel_.parkingCombo->currentText();
     bool confirmed = ModernDialog::showQuestion("Подтверждение удаления", "Вы уверены, что хотите удалить парковку:\n\"" + lotName + "\"?", this);
     if (confirmed) {
         try {
@@ -239,6 +241,8 @@ void MainWindow::onDeleteParking()
             } else {
                 ModernDialog::showError("Ошибка", "Не удалось удалить парковку", this);
             }
+        } catch (const FileIOException& e) {
+            ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
         } catch (const std::exception& e) {
             ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         }
@@ -279,8 +283,10 @@ void MainWindow::onAddVehicle()
         } else {
             ModernDialog::showWarning("Внимание", "Транспорт с таким номером уже существует", this);
         }
-    } catch (const DuplicateVehicleError& e) {  // Исправлено: конкретное исключение
+    } catch (const DuplicateVehicleError& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
+    } catch (const FileIOException& e) {
+        ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -288,11 +294,11 @@ void MainWindow::onAddVehicle()
 
 void MainWindow::onRemoveVehicle()
 {
-    if (vehicleTable->currentRow() < 0) {
+    if (rightPanel_.vehicleTable->currentRow() < 0) {
         ModernDialog::showWarning("Внимание", "Не выбран транспорт для удаления", this);
         return;
     }
-    QString licensePlate = vehicleTable->item(vehicleTable->currentRow(), 2)->text();
+    QString licensePlate = rightPanel_.vehicleTable->item(rightPanel_.vehicleTable->currentRow(), 2)->text();
     bool confirmed = ModernDialog::showQuestion("Подтверждение удаления", "Удалить транспорт:\n\"" + licensePlate + "\"?", this);
     if (confirmed) {
         try {
@@ -303,8 +309,10 @@ void MainWindow::onRemoveVehicle()
             } else {
                 ModernDialog::showError("Ошибка", "Транспорт не найден", this);
             }
-        } catch (const VehicleNotFoundError& e) {  // Исправлено: конкретное исключение
+        } catch (const VehicleNotFoundError& e) {
             ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
+        } catch (const FileIOException& e) {
+            ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
         } catch (const std::exception& e) {
             ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         }
@@ -313,16 +321,16 @@ void MainWindow::onRemoveVehicle()
 
 void MainWindow::onParkVehicle()
 {
-    if (vehicleTable->currentRow() < 0) {
+    if (rightPanel_.vehicleTable->currentRow() < 0) {
         ModernDialog::showWarning("Внимание", "Не выбран транспорт для парковки", this);
         return;
     }
-    if (parkingCombo->currentIndex() < 0) {
+    if (leftPanel_.parkingCombo->currentIndex() < 0) {
         ModernDialog::showWarning("Внимание", "Не выбрана парковка", this);
         return;
     }
-    QString licensePlate = vehicleTable->item(vehicleTable->currentRow(), 2)->text();
-    int lotId = parkingCombo->currentData().toInt();
+    QString licensePlate = rightPanel_.vehicleTable->item(rightPanel_.vehicleTable->currentRow(), 2)->text();
+    int lotId = leftPanel_.parkingCombo->currentData().toInt();
     int spotNumber = InputDialog::getInteger("Парковка транспорта", "Номер места (1-40):", 1, 1, 40, this);
     if (spotNumber == 0) return;
     try {
@@ -342,6 +350,8 @@ void MainWindow::onParkVehicle()
         ModernDialog::showWarning("Внимание", "Транспорт уже припаркован", this);
     } catch (const IncompatibleSpotSizeError&) {
         ModernDialog::showError("Ошибка", "Несовместимое место", this);
+    } catch (const FileIOException& e) {
+        ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -349,13 +359,13 @@ void MainWindow::onParkVehicle()
 
 void MainWindow::onFreeSpot()
 {
-    if (parkingCombo->currentIndex() < 0) {
+    if (leftPanel_.parkingCombo->currentIndex() < 0) {
         ModernDialog::showWarning("Внимание", "Не выбрана парковка", this);
         return;
     }
     int spotNumber = InputDialog::getInteger("Освобождение места", "Номер места (1-40):", 1, 1, 40, this);
     if (spotNumber == 0) return;
-    int lotId = parkingCombo->currentData().toInt();
+    int lotId = leftPanel_.parkingCombo->currentData().toInt();
     try {
         if (parkingSystem_.releaseSpot(lotId, spotNumber)) {
             ModernDialog::showSuccess("Готово", "Место " + QString::number(spotNumber) + " освобождено", this);
@@ -367,6 +377,8 @@ void MainWindow::onFreeSpot()
         ModernDialog::showError("Ошибка", "Место не найдено", this);
     } catch (const SpotAlreadyFreeError&) {
         ModernDialog::showInfo("Информация", "Место уже свободно", this);
+    } catch (const FileIOException& e) {
+        ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
     } catch (const std::exception& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
@@ -374,7 +386,7 @@ void MainWindow::onFreeSpot()
 
 void MainWindow::onSpotClicked(int spotNumber)
 {
-    const auto* lot = parkingSystem_.getParkingLot(parkingCombo->currentData().toInt());
+    const auto* lot = parkingSystem_.getParkingLot(leftPanel_.parkingCombo->currentData().toInt());
     if (!lot) return;
     const ParkingSpotData* spot = ParkingService::findSpot(*lot, spotNumber);
     if (!spot) {
@@ -402,17 +414,18 @@ void MainWindow::onParkingLotChanged(int index)
     }
 }
 
-void MainWindow::updateVehicleTable() const {  // Исправлено: const
-    vehicleTable->setRowCount(0);
+void MainWindow::updateVehicleTable() const
+{
+    rightPanel_.vehicleTable->setRowCount(0);
     const auto& vehicles = parkingSystem_.getVehicles();
     for (const auto& vehicle : vehicles) {
-        int row = vehicleTable->rowCount();
-        vehicleTable->insertRow(row);
-        auto typeItem = new QTableWidgetItem(QString::fromStdString(vehicle.getType()));  // Исправлено: auto
-        auto modelItem = new QTableWidgetItem(QString::fromStdString(vehicle.getModel()));  // Исправлено: auto
-        auto plateItem = new QTableWidgetItem(QString::fromStdString(vehicle.getLicensePlate()));  // Исправлено: auto
+        int row = rightPanel_.vehicleTable->rowCount();
+        rightPanel_.vehicleTable->insertRow(row);
+        auto typeItem = new QTableWidgetItem(QString::fromStdString(vehicle.getType()));
+        auto modelItem = new QTableWidgetItem(QString::fromStdString(vehicle.getModel()));
+        auto plateItem = new QTableWidgetItem(QString::fromStdString(vehicle.getLicensePlate()));
         QString statusText = vehicle.isParked() ? "🟥 Припаркован" : "🟩 Свободен";
-        auto statusItem = new QTableWidgetItem(statusText);  // Исправлено: auto
+        auto statusItem = new QTableWidgetItem(statusText);
         typeItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         modelItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         plateItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -421,59 +434,65 @@ void MainWindow::updateVehicleTable() const {  // Исправлено: const
         modelItem->setForeground(Qt::white);
         plateItem->setForeground(Qt::white);
         statusItem->setForeground(vehicle.isParked() ? QColor("#e74c3c") : QColor("#27ae60"));
-        vehicleTable->setItem(row, 0, typeItem);
-        vehicleTable->setItem(row, 1, modelItem);
-        vehicleTable->setItem(row, 2, plateItem);
-        vehicleTable->setItem(row, 3, statusItem);
+        rightPanel_.vehicleTable->setItem(row, 0, typeItem);
+        rightPanel_.vehicleTable->setItem(row, 1, modelItem);
+        rightPanel_.vehicleTable->setItem(row, 2, plateItem);
+        rightPanel_.vehicleTable->setItem(row, 3, statusItem);
+
         QString parkingInfo = "❌ Не припаркован";
         if (vehicle.isParked()) {
-            for (const auto& [lotId, lot] : parkingSystem_.getParkingLots()) {
-                for (const auto& spot : lot.getSpots()) {
-                    if (spot.isOccupied() && spot.getVehicleLicensePlate() == vehicle.getLicensePlate()) {
-                        parkingInfo = QString::fromStdString(lot.getName()) + " 🅿️ Место " + QString::number(spot.getNumber());
-                        break;
-                    }
-                }
-            }
+            parkingInfo = findVehicleParkingSpot(vehicle);
         }
-        auto parkingItem = new QTableWidgetItem(parkingInfo);  // Исправлено: auto
+        auto parkingItem = new QTableWidgetItem(parkingInfo);
         parkingItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         parkingItem->setForeground(Qt::white);
-        vehicleTable->setItem(row, 4, parkingItem);
+        rightPanel_.vehicleTable->setItem(row, 4, parkingItem);
     }
-    vehicleTable->resizeColumnsToContents();
-    for (int i = 0; i < vehicleTable->columnCount(); ++i) {
-        int width = vehicleTable->columnWidth(i);
-        vehicleTable->setColumnWidth(i, width + 20);
+    rightPanel_.vehicleTable->resizeColumnsToContents();
+    for (int i = 0; i < rightPanel_.vehicleTable->columnCount(); ++i) {
+        int width = rightPanel_.vehicleTable->columnWidth(i);
+        rightPanel_.vehicleTable->setColumnWidth(i, width + 20);
     }
-    vehicleTable->verticalHeader()->setDefaultSectionSize(35);
-    vehicleTable->verticalHeader()->setVisible(false);
+    rightPanel_.vehicleTable->verticalHeader()->setDefaultSectionSize(35);
+    rightPanel_.vehicleTable->verticalHeader()->setVisible(false);
+}
+
+QString MainWindow::findVehicleParkingSpot(const VehicleData& vehicle) const
+{
+    for (const auto& [lotId, lot] : parkingSystem_.getParkingLots()) {
+        for (const auto& spot : lot.getSpots()) {
+            if (spot.isOccupied() && spot.getVehicleLicensePlate() == vehicle.getLicensePlate()) {
+                return QString::fromStdString(lot.getName()) + " 🅿️ Место " + QString::number(spot.getNumber());
+            }
+        }
+    }
+    return "❌ Не припаркован";
 }
 
 void MainWindow::updateParkingCombo()
 {
-    parkingCombo->clear();
+    leftPanel_.parkingCombo->clear();
     const auto& lots = parkingSystem_.getParkingLots();
     for (const auto& [lotId, lot] : lots) {
-        parkingCombo->addItem("🅿️ " + QString::fromStdString(lot.getName()), lotId);
+        leftPanel_.parkingCombo->addItem("🅿️ " + QString::fromStdString(lot.getName()), lotId);
     }
-    if (parkingCombo->count() > 0) {
-        parkingCombo->setCurrentIndex(0);
+    if (leftPanel_.parkingCombo->count() > 0) {
+        leftPanel_.parkingCombo->setCurrentIndex(0);
     }
 }
 
 void MainWindow::updateParkingView()
 {
-    if (parkingCombo->currentIndex() < 0) return;
-    int lotId = parkingCombo->currentData().toInt();
+    if (leftPanel_.parkingCombo->currentIndex() < 0) return;
+    int lotId = leftPanel_.parkingCombo->currentData().toInt();
     const auto* lot = parkingSystem_.getParkingLot(lotId);
     if (!lot) return;
-    parkingNameLabel->setText("🏢 " + QString::fromStdString(lot->getName()));
+    rightPanel_.parkingNameLabel->setText("🏢 " + QString::fromStdString(lot->getName()));
     int occupied = ParkingLotService::getOccupiedSpots(*lot);
-    int total = static_cast<int>(lot->getSpots().size());
+    auto total = static_cast<int>(lot->getSpots().size());
     double occupancy = ParkingLotService::getOccupancyRate(*lot);
-    spotsInfoLabel->setText(QString("📍 Места: %1/%2").arg(occupied).arg(total));
-    occupancyInfoLabel->setText(QString("📊 Заполненность: %1%").arg(occupancy, 0, 'f', 1));
+    rightPanel_.spotsInfoLabel->setText(QString("📍 Места: %1/%2").arg(occupied).arg(total));
+    rightPanel_.occupancyInfoLabel->setText(QString("📊 Заполненность: %1%").arg(occupancy, 0, 'f', 1));
     QVector<ParkingSpotVisual> spots;
     spots.reserve(lot->getSpots().size());
     for (const auto& spot : lot->getSpots()) {
@@ -489,27 +508,27 @@ void MainWindow::updateParkingView()
         }
         spots.append(visual);
     }
-    parkingLotView->setSpots(spots);
-    parkingLotView->setParkingName(QString::fromStdString(lot->getName()));
+    rightPanel_.parkingLotView->setSpots(spots);
+    rightPanel_.parkingLotView->setParkingName(QString::fromStdString(lot->getName()));
 }
 
 void MainWindow::updateStatistics()
 {
-    totalSpotsLabel->setText(QString::number(parkingSystem_.getTotalSpots()));
-    occupiedSpotsLabel->setText(QString::number(parkingSystem_.getOccupiedSpots()));
-    freeSpotsLabel->setText(QString::number(parkingSystem_.getFreeSpots()));
+    stats_.totalSpotsLabel->setText(QString::number(parkingSystem_.getTotalSpots()));
+    stats_.occupiedSpotsLabel->setText(QString::number(parkingSystem_.getOccupiedSpots()));
+    stats_.freeSpotsLabel->setText(QString::number(parkingSystem_.getFreeSpots()));
     double occupancyRate = parkingSystem_.getOccupancyRate();
-    occupancyPercentLabel->setText(QString("%1%").arg(occupancyRate, 0, 'f', 1));
-    int val = static_cast<int>(occupancyRate);
-    occupancyBar->setValue(val);
+    stats_.occupancyPercentLabel->setText(QString("%1%").arg(occupancyRate, 0, 'f', 1));
+    auto val = static_cast<int>(occupancyRate);
+    stats_.occupancyBar->setValue(val);
     if (val < 50) {
-        occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #27ae60; border-radius: 6px; }");
+        stats_.occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #27ae60; border-radius: 6px; }");
     } else if (val < 80) {
-        occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #f39c12; border-radius: 6px; }");
+        stats_.occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #f39c12; border-radius: 6px; }");
     } else {
-        occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #e74c3c; border-radius: 6px; }");
+        stats_.occupancyBar->setStyleSheet("QProgressBar::chunk { background-color: #e74c3c; border-radius: 6px; }");
     }
-    if (parkingCombo->currentIndex() >= 0) {
+    if (leftPanel_.parkingCombo->currentIndex() >= 0) {
         updateParkingView();
     }
 }

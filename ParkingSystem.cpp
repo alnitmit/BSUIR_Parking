@@ -12,6 +12,7 @@
 #include "SpotAlreadyFreeError.h"
 #include "IncompatibleSpotSizeError.h"
 #include "DuplicateVehicleError.h"
+#include "FileIOException.h"
 
 ParkingSystem::ParkingSystem() {
     loadState();
@@ -25,7 +26,7 @@ ParkingSystem::~ParkingSystem() {
     saveState();
 }
 
-bool ParkingSystem::addVehicle(const VehicleData& vehicle) {
+bool ParkingSystem::addVehicle(const VehicleData& vehicle) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
     try {
         bool result = VehicleService::addVehicle(vehicle, repo.getVehicles());
@@ -38,7 +39,7 @@ bool ParkingSystem::addVehicle(const VehicleData& vehicle) {
     }
 }
 
-bool ParkingSystem::removeVehicle(const std::string& licensePlate) {
+bool ParkingSystem::removeVehicle(const std::string& licensePlate) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
 
     for (auto& [lotId, lot] : repo.getParkingLots()) {
@@ -68,10 +69,10 @@ const VehicleData* ParkingSystem::findVehicle(const std::string& licensePlate) c
     return VehicleService::findVehicle(licensePlate, repo.getVehicles());
 }
 
-bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) {
+bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
     int lotId = repo.getNextLotId();
-    ++repo.getNextLotId();  // Исправлено: разделение присваивания
+    ++repo.getNextLotId();
     bool result = ParkingLotService::createParkingLot(name, totalSpots, lotId, repo.getParkingLots());
     if (result) {
         saveState();
@@ -79,7 +80,7 @@ bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) {
     return result;
 }
 
-bool ParkingSystem::removeParkingLot(int lotId) {
+bool ParkingSystem::removeParkingLot(int lotId) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
     bool result = ParkingLotService::removeParkingLot(lotId, repo.getParkingLots());
     if (result) {
@@ -98,12 +99,12 @@ const ParkingLotData* ParkingSystem::getParkingLot(int lotId) const {
     return ParkingLotService::getParkingLot(lotId, repo.getParkingLots());
 }
 
-bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int spotNumber) {
+bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int spotNumber) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
     bool result = ParkingService::parkVehicle(licensePlate, lotId, spotNumber,
                                               repo.getParkingLots(), repo.getVehicles());
     if (result) {
-        if (VehicleData* vehicle = findVehicle(licensePlate); vehicle) {  // Исправлено: init-statement
+        if (VehicleData* vehicle = findVehicle(licensePlate); vehicle) {
             vehicle->setParked(true);
         }
         saveState();
@@ -111,7 +112,7 @@ bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int 
     return result;
 }
 
-bool ParkingSystem::releaseSpot(int lotId, int spotNumber) {
+bool ParkingSystem::releaseSpot(int lotId, int spotNumber) const {  // Исправлено: const
     auto& repo = DataRepository::getInstance();
     bool result = ParkingService::releaseSpot(lotId, spotNumber,
                                               repo.getParkingLots(), repo.getVehicles());
@@ -151,12 +152,12 @@ double ParkingSystem::getOccupancyRate() const {
     return StatisticsService::getOccupancyRate(repo.getParkingLots());
 }
 
-bool ParkingSystem::saveState() const {  // Исправлено: const
+bool ParkingSystem::saveState() const {
     const auto& repo = DataRepository::getInstance();
     return FileManager::saveSystemState(repo.getVehicles(), repo.getParkingLots(), repo.getNextLotId());
 }
 
-bool ParkingSystem::loadState() const {  // Исправлено: const
+bool ParkingSystem::loadState() const {
     auto& repo = DataRepository::getInstance();
     return FileManager::loadSystemState(repo.getVehicles(), repo.getParkingLots(), repo.getNextLotId());
 }

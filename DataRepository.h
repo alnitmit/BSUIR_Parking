@@ -9,7 +9,7 @@
 
 class DataRepository {
 public:
-    static inline DataRepository& getInstance() {
+    static DataRepository& getInstance() {
         static DataRepository instance;
         return instance;
     }
@@ -33,7 +33,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1;  // Исправлено: inline переменная
+    inline static int nextLotId_ = 1;
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 class ParkingStatistics {
 public:
-    ParkingStatistics();
+    ParkingStatistics() = default;  // Исправлено: = default
 
     int getTotalSpots() const;
     void setTotalSpots(int totalSpots);
@@ -21,7 +21,7 @@ public:
     void setOccupancyRate(double occupancyRate);
 
 private:
-    int totalSpots_ = 0;  // Исправлено: инициализация в классе
+    int totalSpots_ = 0;
     int occupiedSpots_ = 0;
     int freeSpots_ = 0;
     double occupancyRate_ = 0.0;

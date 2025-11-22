@@ -5,7 +5,7 @@
 #include <cmath>
 
 ParkingLotView::ParkingLotView(QWidget *parent)
-    : QWidget(parent)  // Исправлено: удалены инициализации из списка
+    : QWidget(parent)
 {
     setMinimumSize(800, 600);
     setStyleSheet("background-color: #2b2f3a;");
@@ -48,7 +48,7 @@ QRect ParkingLotView::getSpotRect(int index) const {
 }
 
 void ParkingLotView::paintEvent(QPaintEvent *event) {
-    Q_UNUSED(event);
+    Q_UNUSED(event)  // Исправлено: убран лишний ;
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -77,7 +77,7 @@ void ParkingLotView::paintEvent(QPaintEvent *event) {
     drawParkingLayout(painter);
 }
 
-void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, const QRect &rect) const {  // Исправлено: const
+void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, const QRect &rect) const {
     QLinearGradient gradient(rect.topLeft(), rect.bottomLeft());
 
     if (spot.occupied) {
@@ -120,7 +120,7 @@ void ParkingLotView::drawSpot(QPainter &painter, const ParkingSpotVisual &spot, 
     }
 }
 
-void ParkingLotView::drawParkingLayout(QPainter &painter) const {  // Исправлено: const
+void ParkingLotView::drawParkingLayout(QPainter &painter) const {
     if (spots_.isEmpty()) return;
 
     painter.setPen(QPen(QColor(149, 165, 166, 100), 4));
@@ -151,7 +151,8 @@ void ParkingLotView::mousePressEvent(QMouseEvent *event) {
 }
 
 void ParkingLotView::resizeEvent(QResizeEvent *event) {
-    Q_UNUSED(event);
+    Q_UNUSED(event)  // Исправлено: убран лишний ;
+
     calculateLayout();
     update();
 }
