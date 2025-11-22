@@ -71,10 +71,10 @@ const VehicleData* ParkingSystem::findVehicle(const std::string& licensePlate) c
 
 bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) {
     auto& repo = DataRepository::getInstance();
-    int lotId = repo.getNextLotId();
+    int lotId = repo.getNextLotId(); // Используем константный метод
     bool result = ParkingLotService::createParkingLot(name, totalSpots, lotId, repo.getParkingLots());
     if (result) {
-        repo.setNextLotId(lotId + 1); // Теперь используем существующий метод
+        repo.setNextLotId(lotId + 1);
         saveState();
     }
     return result;
@@ -159,6 +159,7 @@ bool ParkingSystem::saveState() const {
 
 bool ParkingSystem::loadState() const {
     auto& repo = DataRepository::getInstance();
+    // Используем неконстантную версию getNextLotId() для передачи по ссылке
     return FileManager::loadSystemState(repo.getVehicles(), repo.getParkingLots(), repo.getNextLotId());
 }
 
