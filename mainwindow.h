@@ -18,7 +18,6 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QScrollArea>
-
 #include "ParkingLotView.h"
 #include "ParkingSystem.h"
 #include "VehicleData.h"
@@ -49,14 +48,14 @@ private:
     void setupUI();
     void setupLeftPanel();
     void setupRightPanel();
-    void setupConnections() const;  // Исправлено: const
+    void setupConnections() const;
     void updateVehicleTable() const;
     void updateParkingCombo();
     void updateParkingView();
     void closeEvent(QCloseEvent *event) override;
-    QString findVehicleParkingSpot(const VehicleData& vehicle) const;  // Исправлено: новая функция
+    QString findVehicleParkingSpot(const VehicleData& vehicle) const;
 
-    // Основные виджеты (уменьшено количество полей)
+    // Структуры для организации виджетов
     struct LeftPanelWidgets {
         QWidget* panel = nullptr;
         QComboBox* parkingCombo = nullptr;
@@ -66,7 +65,7 @@ private:
         QPushButton* btnRemoveVehicle = nullptr;
         QPushButton* btnParkVehicle = nullptr;
         QPushButton* btnFreeSpot = nullptr;
-    } leftPanel_;
+    };
 
     struct StatsWidgets {
         QLabel* totalSpotsLabel = nullptr;
@@ -74,7 +73,7 @@ private:
         QLabel* freeSpotsLabel = nullptr;
         QLabel* occupancyPercentLabel = nullptr;
         QProgressBar* occupancyBar = nullptr;
-    } stats_;
+    };
 
     struct RightPanelWidgets {
         QWidget* panel = nullptr;
@@ -85,8 +84,12 @@ private:
         QTabWidget* mainTabs = nullptr;
         ParkingLotView* parkingLotView = nullptr;
         QScrollArea* parkingScrollArea = nullptr;
-    } rightPanel_;
+    };
 
+    // Объявление переменных-членов
+    LeftPanelWidgets leftPanel_;
+    StatsWidgets stats_;
+    RightPanelWidgets rightPanel_;
     ParkingSystem parkingSystem_;
     QTimer* statsTimer = nullptr;
 };

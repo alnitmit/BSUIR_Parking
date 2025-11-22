@@ -1,4 +1,4 @@
-#include "MainWindow.h"  // Исправлено: правильный регистр
+#include "mainwindow.h"  // Исправлен регистр
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -8,7 +8,9 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion("2.0");
     QApplication::setOrganizationName("YourCompany");
     QApplication::setStyle("Fusion");
+
     MainWindow window;
     window.show();
+
     return QApplication::exec();
 }
