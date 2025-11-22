@@ -582,7 +582,7 @@ void MainWindow::updateStatistics()
     const auto* lot = parkingSystem_.getParkingLot(lotId);
     if (!lot) return;
 
-    int total = static_cast<int>(lot->getSpots().size());
+    auto total = static_cast<int>(lot->getSpots().size());
     int occupied = ParkingLotService::getOccupiedSpots(*lot);
     int free = total - occupied;
     double occupancyRate = ParkingLotService::getOccupancyRate(*lot);
