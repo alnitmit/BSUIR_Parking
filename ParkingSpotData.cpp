@@ -42,7 +42,7 @@ std::string ParkingSpotData::getVehicleLicensePlate() const {
     return vehicleLicensePlate_;
 }
 
-void ParkingSpotData::setVehicleLicensePlate(const std::string& licensePlate) {
+void ParkingSpotData::setVehicleLicensePlate(std::string_view licensePlate) {
     vehicleLicensePlate_ = licensePlate;
 }
 
@@ -58,7 +58,7 @@ void ParkingSpotData::clearParkingTime() {
     parkingTime_.reset();
 }
 
-ParkingSpotData::Size ParkingSpotData::parseSize(const std::string& str) {
+ParkingSpotData::Size ParkingSpotData::parseSize(std::string_view str) {
     if (str == "COMPACT") return Size::COMPACT;
     if (str == "STANDARD") return Size::STANDARD;
     if (str == "LARGE") return Size::LARGE;

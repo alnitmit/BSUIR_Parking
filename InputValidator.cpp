@@ -3,7 +3,7 @@
 QString InputValidator::lastError_;
 
 bool InputValidator::isValidLicensePlate(const QString& plate) {
-    if (QRegularExpression regex(R"(^[A-Z0-9]{1,10}$)"); !regex.match(plate).hasMatch()) {
+    if (QRegularExpression regex(R"(^[A-Z0-9]{1,10}$)"); !regex.match(plate).hasMatch()) {  // Исправлено: init-statement
         lastError_ = "License plate must contain only uppercase letters and numbers (1-10 characters)";
         return false;
     }
@@ -11,7 +11,7 @@ bool InputValidator::isValidLicensePlate(const QString& plate) {
 }
 
 bool InputValidator::isValidTimeFormat(const QString& time) {
-    if (QRegularExpression regex(R"(^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$)"); !regex.match(time).hasMatch()) {
+    if (QRegularExpression regex(R"(^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$)"); !regex.match(time).hasMatch()) {  // Исправлено: init-statement
         lastError_ = "Time must be in format: YYYY-MM-DD HH:MM:SS";
         return false;
     }

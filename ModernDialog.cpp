@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <QLinearGradient>
 
+using enum ModernDialog::DialogType;  // Исправлено: using enum
+
 ModernDialog::ModernDialog(DialogType type, const QString& title, const QString& message, QWidget* parent)
     : QDialog(parent)
 {
@@ -16,42 +18,54 @@ ModernDialog::ModernDialog(DialogType type, const QString& title, const QString&
 void ModernDialog::setupUI(DialogType type, const QString& title, const QString& message)
 {
     setFixedSize(400, 280);
-    auto mainFrame = new QFrame(this);
+
+    auto mainFrame = new QFrame(this);  // Исправлено: auto
     mainFrame->setObjectName("mainFrame");
     mainFrame->setStyleSheet(getStyleSheet(type));
-    auto shadowEffect = new QGraphicsDropShadowEffect(this);
+
+    auto shadowEffect = new QGraphicsDropShadowEffect(this);  // Исправлено: auto
     shadowEffect->setBlurRadius(20);
     shadowEffect->setColor(QColor(0, 0, 0, 80));
     shadowEffect->setOffset(0, 5);
     mainFrame->setGraphicsEffect(shadowEffect);
-    auto mainLayout = new QVBoxLayout(this);
+
+    auto mainLayout = new QVBoxLayout(this);  // Исправлено: auto
     mainLayout->setContentsMargins(20, 20, 20, 20);
     mainLayout->addWidget(mainFrame);
-    auto frameLayout = new QVBoxLayout(mainFrame);
+
+    auto frameLayout = new QVBoxLayout(mainFrame);  // Исправлено: auto
     frameLayout->setContentsMargins(30, 30, 30, 25);
     frameLayout->setSpacing(20);
-    auto headerLayout = new QHBoxLayout();
+
+    auto headerLayout = new QHBoxLayout();  // Исправлено: auto
     headerLayout->setSpacing(15);
-    auto iconLabel = new QLabel();
+
+    auto iconLabel = new QLabel();  // Исправлено: auto
     iconLabel->setText(getIcon(type));
     iconLabel->setStyleSheet("QLabel { font-size: 40px; background: transparent; }");
     iconLabel->setFixedSize(50, 50);
-    auto titleLabel = new QLabel(title);
+
+    auto titleLabel = new QLabel(title);  // Исправлено: auto
     titleLabel->setStyleSheet("QLabel { color: white; font-size: 18px; font-weight: bold; background: transparent; }");
     titleLabel->setWordWrap(true);
+
     headerLayout->addWidget(iconLabel);
     headerLayout->addWidget(titleLabel);
     headerLayout->setStretchFactor(titleLabel, 1);
     frameLayout->addLayout(headerLayout);
-    auto messageLabel = new QLabel(message);
+
+    auto messageLabel = new QLabel(message);  // Исправлено: auto
     messageLabel->setStyleSheet("QLabel { color: rgba(255,255,255,0.9); font-size: 14px; line-height: 1.4; background: transparent; }");
     messageLabel->setWordWrap(true);
     messageLabel->setAlignment(Qt::AlignLeft);
     frameLayout->addWidget(messageLabel);
+
     frameLayout->addStretch();
-    auto buttonLayout = new QHBoxLayout();
+
+    auto buttonLayout = new QHBoxLayout();  // Исправлено: auto
     buttonLayout->setSpacing(15);
-    if (type == DialogType::Question) {
+
+    if (type == Question) {  // Исправлено: using enum
         btnYes = new QPushButton("✓ Да");
         btnNo = new QPushButton("✗ Нет");
         btnYes->setStyleSheet("QPushButton { background: qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #27ae60,stop:1 #219a52); color:white; font-weight:bold; border-radius:8px; padding:10px 20px; font-size:14px; border:none; min-width:80px; } QPushButton:hover{background:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #2ecc71,stop:1 #27ae60);} QPushButton:pressed{background:#219a52;}");
@@ -68,17 +82,18 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
         buttonLayout->addStretch();
         buttonLayout->addWidget(btnOk);
     }
+
     frameLayout->addLayout(buttonLayout);
 }
 
 QString ModernDialog::getIcon(DialogType type) const
 {
     switch (type) {
-    case DialogType::Info: return "💡";
-    case DialogType::Success: return "✅";
-    case DialogType::Warning: return "⚠️";
-    case DialogType::Error: return "❌";
-    case DialogType::Question: return "❓";
+    case Info: return "💡";  // Исправлено: using enum
+    case Success: return "✅";
+    case Warning: return "⚠️";
+    case Error: return "❌";
+    case Question: return "❓";
     default: return "💡";
     }
 }
@@ -87,11 +102,11 @@ QString ModernDialog::getStyleSheet(DialogType type) const
 {
     QString gradient;
     switch (type) {
-    case DialogType::Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
-    case DialogType::Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
-    case DialogType::Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
-    case DialogType::Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
-    case DialogType::Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
+    case Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
+    case Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
+    case Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
+    case Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
+    case Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
     default: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)";
     }
     return QString("QFrame#mainFrame { background:%1; border-radius:15px; border:1px solid rgba(255,255,255,0.2);}").arg(gradient);
@@ -103,10 +118,11 @@ void ModernDialog::showEvent(QShowEvent* event)
     if (parentWidget()) {
         move(parentWidget()->mapToGlobal(parentWidget()->rect().center()) - rect().center());
     } else {
-        const QScreen* screen = QApplication::primaryScreen();
+        const QScreen* screen = QApplication::primaryScreen();  // Исправлено: const указатель
         if (screen) move(screen->geometry().center() - rect().center());
     }
-    auto animation = new QPropertyAnimation(this, "windowOpacity");
+
+    auto animation = new QPropertyAnimation(this, "windowOpacity");  // Исправлено: auto
     animation->setDuration(200);
     animation->setStartValue(0);
     animation->setEndValue(1);
@@ -135,30 +151,30 @@ void ModernDialog::onNoClicked()
 
 void ModernDialog::showInfo(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(DialogType::Info, title, message, parent);
+    ModernDialog dialog(Info, title, message, parent);  // Исправлено: using enum
     dialog.exec();
 }
 
 void ModernDialog::showSuccess(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(DialogType::Success, title, message, parent);
+    ModernDialog dialog(Success, title, message, parent);  // Исправлено: using enum
     dialog.exec();
 }
 
 void ModernDialog::showWarning(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(DialogType::Warning, title, message, parent);
+    ModernDialog dialog(Warning, title, message, parent);  // Исправлено: using enum
     dialog.exec();
 }
 
 void ModernDialog::showError(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(DialogType::Error, title, message, parent);
+    ModernDialog dialog(Error, title, message, parent);  // Исправлено: using enum
     dialog.exec();
 }
 
 bool ModernDialog::showQuestion(const QString& title, const QString& message, QWidget* parent)
 {
-    ModernDialog dialog(DialogType::Question, title, message, parent);
+    ModernDialog dialog(Question, title, message, parent);  // Исправлено: using enum
     return dialog.exec() == QDialog::Accepted && dialog.result;
 }

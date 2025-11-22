@@ -11,14 +11,14 @@
 #include <QSpinBox>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
-#include <QPropertyAnimation>  // Добавляем этот include
+#include <QPropertyAnimation>
 
 class InputDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    enum class InputType {
+    enum class InputType {  // Исправлено: enum class
         Text,
         Integer,
         ComboBox
@@ -49,7 +49,7 @@ private slots:
 private:
     void setupUI(const QString& title, const QString& label, InputType type);
 
-    QLineEdit* textEdit = nullptr;
+    QLineEdit* textEdit = nullptr;  // Исправлено: инициализация в классе
     QSpinBox* spinBox = nullptr;
     QComboBox* comboBox = nullptr;
     QPushButton* btnOk = nullptr;
