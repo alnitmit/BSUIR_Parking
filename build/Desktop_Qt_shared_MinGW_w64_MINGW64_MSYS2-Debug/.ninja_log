@@ -80,3 +80,11 @@
 205	4769	7856230535051038	CMakeFiles/pr.dir/InputDialog.cpp.obj	d4fcb0a793326290
 199	4862	7856230534991026	CMakeFiles/pr.dir/ParkingLotView.cpp.obj	1e423a25e9a0ea8d
 4862	5402	7856230581615627	pr.exe	1d412d011bec034d
+34	190	7856232884973106	pr_autogen/timestamp	2f8a2af4988365c3
+34	190	7856232884973106	pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+34	190	7856232884973106	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/timestamp	2f8a2af4988365c3
+34	190	7856232884973106	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+198	1232	7856232886607716	CMakeFiles/pr.dir/ParkingSystem.cpp.obj	e1ba8a860f83b841
+192	1294	7856232886546794	CMakeFiles/pr.dir/ParkingService.cpp.obj	46349f8bc92f1744
+195	1489	7856232886576865	CMakeFiles/pr.dir/VehicleService.cpp.obj	c6d321db1a6287b8
+1489	1811	7856232899526170	pr.exe	1d412d011bec034d
