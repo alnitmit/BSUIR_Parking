@@ -88,7 +88,7 @@ private:
     LeftPanelWidgets leftPanel_;
     StatsWidgets stats_;
     RightPanelWidgets rightPanel_;
-    ParkingSystem parkingSystem_;
+    [[no_unique_address]] ParkingSystem parkingSystem_;
     QTimer* statsTimer = nullptr;
 };
 

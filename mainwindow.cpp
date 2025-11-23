@@ -231,8 +231,8 @@ void MainWindow::onCreateParking()
         }
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception&) {
-        ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка", this);
+    } catch (...) {
+        ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка при создании парковки", this);
     }
 }
 
@@ -257,8 +257,8 @@ void MainWindow::onDeleteParking()
             }
         } catch (const FileIOException& e) {
             ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-        } catch (const std::exception& e) {
-            ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
+        } catch (...) {
+            ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка при удалении парковки", this);
         }
     }
 }
