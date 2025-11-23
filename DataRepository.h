@@ -21,19 +21,22 @@ public:
 
     int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
-    void setNextLotId(int id) const { nextLotId_ = id; } // Убрано const
+
+    void resetNextLotId() { nextLotId_ = 1; }
 
     void clear();
+
+    // Удаляем конструкторы копирования и присваивания
+    DataRepository(const DataRepository&) = delete;
+    DataRepository& operator=(const DataRepository&) = delete;
 
 private:
     DataRepository() = default;
     ~DataRepository() = default;
-    DataRepository(const DataRepository&) = delete;
-    DataRepository& operator=(const DataRepository&) = delete;
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1; // Уже правильно как inline variable
+    int nextLotId_ = 1;
 };
 
 #endif

@@ -74,7 +74,7 @@ bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) co
     int lotId = repo.getNextLotId();
     bool result = ParkingLotService::createParkingLot(name, totalSpots, lotId, repo.getParkingLots());
     if (result) {
-        repo.setNextLotId(lotId + 1);
+        repo.getNextLotId() = lotId + 1;
         saveState();
     }
     return result;
