@@ -12,6 +12,7 @@
 #include "VehicleAlreadyParkedError.h"
 #include "SpotAlreadyFreeError.h"
 #include "IncompatibleSpotSizeError.h"
+#include "ParkingLotNotFoundError.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
@@ -231,8 +232,8 @@ void MainWindow::onCreateParking()
         }
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (...) {
-        ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка при создании парковки", this);
+    } catch (const std::exception&) {
+        ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка", this);
     }
 }
 
@@ -257,8 +258,10 @@ void MainWindow::onDeleteParking()
             }
         } catch (const FileIOException& e) {
             ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-        } catch (...) {
-            ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка при удалении парковки", this);
+        } catch (const ParkingLotNotFoundError& e) {
+            ModernDialog::showError("Ошибка парковки", QString::fromUtf8(e.what()), this);
+        } catch (const std::exception& e) {
+            ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         }
     }
 }
