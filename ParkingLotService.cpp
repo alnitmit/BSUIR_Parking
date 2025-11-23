@@ -19,16 +19,18 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
 
     ParkingLotData newLot(lotId, name);
 
-    // Используем using enum с явным указанием пространства имен
+    // Используем псевдоним типа для уменьшения многословия
+    using Size = ParkingSpotData::Size;
+
     for (int i = 1; i <= totalSpots; ++i) {
-        ParkingSpotData::Size size = ParkingSpotData::Size::Standard;
+        Size spotSize = Size::Standard;
         if (i <= totalSpots * 0.2) {
-            size = ParkingSpotData::Size::Compact;
+            spotSize = Size::Compact;
         } else if (i > totalSpots * 0.8) {
-            size = ParkingSpotData::Size::Large;
+            spotSize = Size::Large;
         }
 
-        ParkingSpotData spot(i, size);
+        ParkingSpotData spot(i, spotSize);
         newLot.addSpot(spot);
     }
 
