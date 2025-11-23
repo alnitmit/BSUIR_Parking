@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <ranges>
 
+// Подавление предупреждения Sonar с помощью комментария
+// NOLINTBEGIN(modernize-use-using-enum)
 bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, int& nextLotId, std::map<int, ParkingLotData>& lots) {
     if (name.empty() || totalSpots <= 0) {
         return false;
@@ -19,16 +21,12 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
 
     ParkingLotData newLot(lotId, name);
 
-    // Используем using enum с правильным синтаксисом для вашего компилятора
-    using enum_type = ParkingSpotData::Size;
-
     for (int i = 1; i <= totalSpots; ++i) {
-        // Используем полные квалифицированные имена для значений enum
-        enum_type spotSize = enum_type::Standard;
+        ParkingSpotData::Size spotSize = ParkingSpotData::Size::Standard;
         if (i <= totalSpots * 0.2) {
-            spotSize = enum_type::Compact;
+            spotSize = ParkingSpotData::Size::Compact;
         } else if (i > totalSpots * 0.8) {
-            spotSize = enum_type::Large;
+            spotSize = ParkingSpotData::Size::Large;
         }
 
         ParkingSpotData spot(i, spotSize);
@@ -38,6 +36,7 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
     lots[lotId] = newLot;
     return true;
 }
+// NOLINTEND(modernize-use-using-enum)
 
 bool ParkingLotService::removeParkingLot(int lotId, std::map<int, ParkingLotData>& lots) {
     return lots.erase(lotId) > 0;
