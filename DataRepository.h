@@ -9,7 +9,7 @@
 
 class DataRepository {
 private:
-    inline static DataRepository* instance = nullptr;  // Inline variable вместо локального static
+    inline static DataRepository* instance = nullptr;
 
 public:
     static DataRepository& getInstance() {
@@ -19,7 +19,7 @@ public:
         return *instance;
     }
 
-    static void destroyInstance() {  // Добавляем метод для очистки
+    static void destroyInstance() {
         delete instance;
         instance = nullptr;
     }
@@ -29,12 +29,12 @@ public:
     std::map<int, ParkingLotData>& getParkingLots() { return lots_; }
     const std::map<int, ParkingLotData>& getParkingLots() const { return lots_; }
 
+    // Убираем сеттер и предоставляем доступ через метод, который логически оправдан
     int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
 
-    void setNextLotId(int id) const {
-        const_cast<DataRepository*>(this)->nextLotId_ = id;
-    }
+    // Вместо сеттера используем метод с осмысленным именем
+    void resetNextLotId() { nextLotId_ = 1; }
 
     void clear();
 
@@ -46,7 +46,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    mutable int nextLotId_ = 1;
+    int nextLotId_ = 1;
 };
 
 #endif
