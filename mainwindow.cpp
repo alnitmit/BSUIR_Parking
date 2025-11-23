@@ -232,7 +232,7 @@ void MainWindow::onCreateParking()
         }
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception& e) {
+    } catch (const ParkingSystemError& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
 }
