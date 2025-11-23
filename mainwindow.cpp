@@ -162,16 +162,9 @@ void MainWindow::setupRightPanel()
 
     auto infoLayout = new QHBoxLayout();
     rightPanel_.parkingNameLabel = new QLabel("🏢 Парковка не выбрана");
-    rightPanel_.spotsInfoLabel = new QLabel("📍 Места: -/-");
-    rightPanel_.occupancyInfoLabel = new QLabel("📊 Заполненность: -");
-
     rightPanel_.parkingNameLabel->setStyleSheet("font-weight: bold; font-size: 16px; color: #f1f1f1;");
-    rightPanel_.spotsInfoLabel->setStyleSheet("color: #bdc3c7;");
-    rightPanel_.occupancyInfoLabel->setStyleSheet("color: #bdc3c7;");
 
     infoLayout->addWidget(rightPanel_.parkingNameLabel);
-    infoLayout->addWidget(rightPanel_.spotsInfoLabel);
-    infoLayout->addWidget(rightPanel_.occupancyInfoLabel);
     infoLayout->addStretch();
 
     rightPanel_.mainTabs = new QTabWidget(rightPanel_.panel);
@@ -239,7 +232,7 @@ void MainWindow::onCreateParking()
         }
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception& e) {
+    } catch (const std::exception&) {
         ModernDialog::showError("Ошибка", "Произошла неизвестная ошибка", this);
     }
 }
@@ -539,12 +532,6 @@ void MainWindow::updateParkingView()
     if (!lot) return;
 
     rightPanel_.parkingNameLabel->setText("🏢 " + QString::fromStdString(lot->getName()));
-    int occupied = ParkingLotService::getOccupiedSpots(*lot);
-    auto total = static_cast<int>(lot->getSpots().size());
-    double occupancy = ParkingLotService::getOccupancyRate(*lot);
-
-    rightPanel_.spotsInfoLabel->setText(QString("📍 Места: %1/%2").arg(occupied).arg(total));
-    rightPanel_.occupancyInfoLabel->setText(QString("📊 Заполненность: %1%").arg(occupancy, 0, 'f', 1));
 
     QVector<ParkingSpotVisual> spots;
     spots.reserve(lot->getSpots().size());

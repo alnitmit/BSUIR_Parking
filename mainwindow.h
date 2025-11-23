@@ -78,8 +78,6 @@ private:
     struct RightPanelWidgets {
         QWidget* panel = nullptr;
         QLabel* parkingNameLabel = nullptr;
-        QLabel* spotsInfoLabel = nullptr;
-        QLabel* occupancyInfoLabel = nullptr;
         QTableWidget* vehicleTable = nullptr;
         QTabWidget* mainTabs = nullptr;
         ParkingLotView* parkingLotView = nullptr;
@@ -91,7 +89,7 @@ private:
     StatsWidgets stats_;
     RightPanelWidgets rightPanel_;
     ParkingSystem parkingSystem_;
-    QTimer* statsTimer = nullptr;
+    QTimer* statsTimer;
 };
 
 #endif
