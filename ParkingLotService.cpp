@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <ranges>
 
-// Подавление предупреждения Sonar с помощью комментария
-// NOLINTBEGIN(modernize-use-using-enum)
 bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, int& nextLotId, std::map<int, ParkingLotData>& lots) {
     if (name.empty() || totalSpots <= 0) {
         return false;
@@ -36,8 +34,9 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
     lots[lotId] = newLot;
     return true;
 }
-// NOLINTEND(modernize-use-using-enum)
 
+
+// Остальные методы остаются без изменений
 bool ParkingLotService::removeParkingLot(int lotId, std::map<int, ParkingLotData>& lots) {
     return lots.erase(lotId) > 0;
 }
