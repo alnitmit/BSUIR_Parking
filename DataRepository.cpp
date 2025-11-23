@@ -1,9 +1,10 @@
 #include "DataRepository.h"
 
-// Определяем статическую переменную в cpp файле
 DataRepository& DataRepository::getInstance() {
-    static DataRepository instance;
-    return instance;
+    if (!instance_) {
+        instance_ = new DataRepository();
+    }
+    return *instance_;
 }
 
 void DataRepository::clear() {

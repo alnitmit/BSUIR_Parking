@@ -20,10 +20,8 @@ public:
     int getNextLotId() const { return nextLotId_; }
 
     void resetNextLotId() { nextLotId_ = 1; }
-
     void clear();
 
-    // Удаляем конструкторы копирования и присваивания
     DataRepository(const DataRepository&) = delete;
     DataRepository& operator=(const DataRepository&) = delete;
 
@@ -34,6 +32,9 @@ private:
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
     int nextLotId_ = 1;
+
+    // ✅ inline static указатель на экземпляр
+    inline static DataRepository* instance_ = nullptr;
 };
 
 #endif
