@@ -89,7 +89,7 @@ private:
     StatsWidgets stats_;
     RightPanelWidgets rightPanel_;
     ParkingSystem parkingSystem_;
-    QTimer* statsTimer;
+    QTimer* statsTimer = nullptr;
 };
 
 #endif

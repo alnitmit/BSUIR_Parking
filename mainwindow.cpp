@@ -27,7 +27,6 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , statsTimer(nullptr)
 {
     setupUI();
     setupConnections();
@@ -307,7 +306,7 @@ void MainWindow::onAddVehicle()
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception& e) {
+    } catch (const InvalidLicensePlateError& e) {
         ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
 }
@@ -335,8 +334,6 @@ void MainWindow::onRemoveVehicle()
             ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         } catch (const FileIOException& e) {
             ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-        } catch (const std::exception& e) {
-            ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
         }
     }
 }
@@ -378,8 +375,6 @@ void MainWindow::onParkVehicle()
         ModernDialog::showError("Ошибка", "Несовместимое место", this);
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception& e) {
-        ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
 }
 
@@ -408,8 +403,6 @@ void MainWindow::onFreeSpot()
         ModernDialog::showInfo("Информация", "Место уже свободно", this);
     } catch (const FileIOException& e) {
         ModernDialog::showError("Ошибка файла", QString::fromUtf8(e.what()), this);
-    } catch (const std::exception& e) {
-        ModernDialog::showError("Ошибка", QString::fromUtf8(e.what()), this);
     }
 }
 

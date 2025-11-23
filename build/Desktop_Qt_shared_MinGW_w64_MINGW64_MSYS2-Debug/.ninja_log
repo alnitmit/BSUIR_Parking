@@ -73,3 +73,11 @@
 637	3639	7856188797752785	CMakeFiles/pr.dir/pr_autogen/mocs_compilation.cpp.obj	34c36990f336f7ad
 643	5247	7856188797802814	CMakeFiles/pr.dir/mainwindow.cpp.obj	5af2db673893e801
 5247	5556	7856188843847481	pr.exe	352f7d0a42e187c9
+33	642	7856192823800822	pr_autogen/timestamp	2f8a2af4988365c3
+33	642	7856192823800822	pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+33	642	7856192823800822	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/timestamp	2f8a2af4988365c3
+33	642	7856192823800822	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+647	3267	7856192824356730	CMakeFiles/pr.dir/main.cpp.obj	49e09c5d8573192c
+643	3627	7856192824310943	CMakeFiles/pr.dir/pr_autogen/mocs_compilation.cpp.obj	34c36990f336f7ad
+650	5256	7856192824386739	CMakeFiles/pr.dir/mainwindow.cpp.obj	5af2db673893e801
+5256	5566	7856192870451503	pr.exe	352f7d0a42e187c9
