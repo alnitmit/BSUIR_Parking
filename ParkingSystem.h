@@ -42,6 +42,7 @@ public:
     bool loadState() const;
 
 private:
-    void initializeDefaultLots();
+    void initializeDefaultLots() const;
 };
+
 #endif

@@ -1,10 +1,12 @@
 #include "ParkingSpotData.h"
 #include <stdexcept>
+#include "SpotAlreadyOccupiedError.h"
+#include "SpotAlreadyFreeError.h"
 
-ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::Standard), occupied_(false) {}
+ParkingSpotData::ParkingSpotData() : number_(0), size_(Size::Standard) {}
 
 ParkingSpotData::ParkingSpotData(int number, Size size)
-    : number_(number), size_(size), occupied_(false) {}
+    : number_(number), size_(size) {}
 
 int ParkingSpotData::getNumber() const { return number_; }
 void ParkingSpotData::setNumber(int number) { number_ = number; }
@@ -15,14 +17,14 @@ void ParkingSpotData::setSize(Size size) { size_ = size; }
 bool ParkingSpotData::isOccupied() const { return occupied_; }
 void ParkingSpotData::setOccupied(bool occupied) { occupied_ = occupied; }
 
-std::string ParkingSpotData::getVehicleLicensePlate() const { return vehicleLicensePlate_; }  // Исправлено
-void ParkingSpotData::setVehicleLicensePlate(const std::string& licensePlate) {
+std::string ParkingSpotData::getVehicleLicensePlate() const { return vehicleLicensePlate_; }
+void ParkingSpotData::setVehicleLicensePlate(std::string_view licensePlate) {
     vehicleLicensePlate_ = licensePlate;
 }
 
-void ParkingSpotData::occupy(const std::string& licensePlate) {
+void ParkingSpotData::occupy(std::string_view licensePlate) {
     if (occupied_) {
-        throw std::runtime_error("Spot already occupied");
+        throw SpotAlreadyOccupiedError("Spot already occupied");
     }
     occupied_ = true;
     vehicleLicensePlate_ = licensePlate;
@@ -30,33 +32,40 @@ void ParkingSpotData::occupy(const std::string& licensePlate) {
 
 void ParkingSpotData::release() {
     if (!occupied_) {
-        throw std::runtime_error("Spot already free");
+        throw SpotAlreadyFreeError("Spot already free");
     }
     occupied_ = false;
     vehicleLicensePlate_.clear();
 }
 
 std::string ParkingSpotData::getSizeString() const {
-    return sizeToString(size_);
-}
-
-ParkingSpotData::Size ParkingSpotData::parseSize(const std::string& str) {
-    if (str == "Compact") return Size::Compact;
-    if (str == "Standard") return Size::Standard;
-    if (str == "Large") return Size::Large;
-    throw std::invalid_argument("Invalid spot size");
-}
-
-std::string ParkingSpotData::sizeToString(Size size) {
-    switch (size) {
-    case Size::Compact: return "Compact";
-    case Size::Standard: return "Standard";
-    case Size::Large: return "Large";
+    using enum Size;
+    switch (size_) {
+    case Compact: return "Compact";
+    case Standard: return "Standard";
+    case Large: return "Large";
     default: return "Unknown";
     }
 }
 
-// Реализация остальных методов
+ParkingSpotData::Size ParkingSpotData::parseSize(std::string_view str) {
+    using enum Size;
+    if (str == "Compact") return Compact;
+    if (str == "Standard") return Standard;
+    if (str == "Large") return Large;
+    throw std::invalid_argument("Invalid spot size");
+}
+
+std::string ParkingSpotData::sizeToString(Size size) {
+    using enum Size;
+    switch (size) {
+    case Compact: return "Compact";
+    case Standard: return "Standard";
+    case Large: return "Large";
+    default: return "Unknown";
+    }
+}
+
 std::optional<std::string> ParkingSpotData::getParkingTime() const { return parkingTime_; }
 void ParkingSpotData::setParkingTime(const std::optional<std::string>& time) { parkingTime_ = time; }
 void ParkingSpotData::clearParkingTime() { parkingTime_.reset(); }

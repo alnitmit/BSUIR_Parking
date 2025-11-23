@@ -1,7 +1,6 @@
 #include "StatisticsService.h"
 #include <algorithm>
-
-// Убираем определение конструктора, так как он = default в заголовке
+#include <ranges>
 
 int ParkingStatistics::getTotalSpots() const {
     return totalSpots_;
@@ -43,7 +42,7 @@ ParkingStatistics StatisticsService::calculateStatistics(const std::map<int, Par
 
     for (const auto& [id, lot] : lots) {
         totalSpots += static_cast<int>(lot.getSpots().size());
-        // Заменяем std::ranges::count_if на std::count_if
+        // Используем std::count_if вместо std::ranges::count_if для совместимости
         occupiedSpots += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
                                        [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
@@ -71,7 +70,7 @@ int StatisticsService::getTotalSpots(const std::map<int, ParkingLotData>& lots) 
 int StatisticsService::getOccupiedSpots(const std::map<int, ParkingLotData>& lots) {
     int occupied = 0;
     for (const auto& [id, lot] : lots) {
-        // Заменяем std::ranges::count_if на std::count_if
+        // Используем std::count_if вместо std::ranges::count_if для совместимости
         occupied += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
                                   [](const ParkingSpotData& s) { return s.isOccupied(); });
     }

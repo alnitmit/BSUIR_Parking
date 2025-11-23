@@ -3,10 +3,11 @@
 
 #include <string>
 #include <optional>
+#include <string_view>
 
 class ParkingSpotData {
 public:
-    enum class Size { Compact, Standard, Large };  // Исправлено: добавлены значения
+    enum class Size { Compact, Standard, Large };
 
     ParkingSpotData();
     ParkingSpotData(int number, Size size);
@@ -22,24 +23,23 @@ public:
     bool isOccupied() const;
     void setOccupied(bool occupied);
 
-    std::string getVehicleLicensePlate() const;  // Исправлено: убрана ссылка
-    void setVehicleLicensePlate(const std::string& licensePlate);
+    std::string getVehicleLicensePlate() const;
+    void setVehicleLicensePlate(std::string_view licensePlate);
 
-    // Добавлены отсутствующие методы
-    void occupy(const std::string& licensePlate);
+    void occupy(std::string_view licensePlate);
     void release();
 
     std::optional<std::string> getParkingTime() const;
     void setParkingTime(const std::optional<std::string>& time);
     void clearParkingTime();
 
-    static Size parseSize(const std::string& str);
-    static std::string sizeToString(Size size);  // Добавлен отсутствующий метод
+    static Size parseSize(std::string_view str);
+    static std::string sizeToString(Size size);
 
 private:
     int number_;
     Size size_;
-    bool occupied_;
+    bool occupied_ = false;
     std::string vehicleLicensePlate_;
     std::optional<std::string> parkingTime_;
 };
