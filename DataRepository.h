@@ -8,10 +8,20 @@
 #include "ParkingLotData.h"
 
 class DataRepository {
+private:
+    inline static DataRepository* instance = nullptr;  // Inline variable вместо локального static
+
 public:
     static DataRepository& getInstance() {
-        static DataRepository instance;
-        return instance;
+        if (!instance) {
+            instance = new DataRepository();
+        }
+        return *instance;
+    }
+
+    static void destroyInstance() {  // Добавляем метод для очистки
+        delete instance;
+        instance = nullptr;
     }
 
     std::vector<VehicleData>& getVehicles() { return vehicles_; }
@@ -21,7 +31,10 @@ public:
 
     int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
-    void setNextLotId(int id) { nextLotId_ = id; } // Убрано const
+
+    void setNextLotId(int id) const {
+        const_cast<DataRepository*>(this)->nextLotId_ = id;
+    }
 
     void clear();
 
@@ -33,7 +46,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1; // Уже правильно как inline variable
+    mutable int nextLotId_ = 1;
 };
 
 #endif
