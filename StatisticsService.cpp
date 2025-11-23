@@ -42,9 +42,9 @@ ParkingStatistics StatisticsService::calculateStatistics(const std::map<int, Par
 
     for (const auto& [id, lot] : lots) {
         totalSpots += static_cast<int>(lot.getSpots().size());
-        // Используем std::count_if вместо std::ranges::count_if для совместимости
-        occupiedSpots += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
-                                       [](const ParkingSpotData& s) { return s.isOccupied(); });
+        // Используем std::ranges::count_if с диапазоном
+        occupiedSpots += std::ranges::count_if(lot.getSpots(),
+                                               [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
 
     stats.setTotalSpots(totalSpots);
@@ -70,9 +70,9 @@ int StatisticsService::getTotalSpots(const std::map<int, ParkingLotData>& lots) 
 int StatisticsService::getOccupiedSpots(const std::map<int, ParkingLotData>& lots) {
     int occupied = 0;
     for (const auto& [id, lot] : lots) {
-        // Используем std::count_if вместо std::ranges::count_if для совместимости
-        occupied += std::count_if(lot.getSpots().begin(), lot.getSpots().end(),
-                                  [](const ParkingSpotData& s) { return s.isOccupied(); });
+        // Используем std::ranges::count_if с диапазоном
+        occupied += std::ranges::count_if(lot.getSpots(),
+                                          [](const ParkingSpotData& s) { return s.isOccupied(); });
     }
     return occupied;
 }
