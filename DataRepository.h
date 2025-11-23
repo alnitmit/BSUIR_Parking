@@ -21,7 +21,7 @@ public:
 
     int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
-    void setNextLotId(int id) { nextLotId_ = id; }
+    void setNextLotId(int id) { nextLotId_ = id; } // Убрано const
 
     void clear();
 
@@ -33,7 +33,7 @@ private:
 
     std::vector<VehicleData> vehicles_;
     std::map<int, ParkingLotData> lots_;
-    inline static int nextLotId_ = 1;  // Уже правильно использует inline variable
+    inline static int nextLotId_ = 1; // Уже правильно как inline variable
 };
 
 #endif
