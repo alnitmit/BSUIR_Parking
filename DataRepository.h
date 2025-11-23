@@ -33,7 +33,6 @@ private:
     std::map<int, ParkingLotData> lots_;
     int nextLotId_ = 1;
 
-    // ✅ inline static указатель на экземпляр
     inline static DataRepository* instance_ = nullptr;
 };
 
