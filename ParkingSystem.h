@@ -17,18 +17,18 @@ public:
     ParkingSystem(ParkingSystem&&) = delete;
     ParkingSystem& operator=(ParkingSystem&&) = delete;
 
-    bool addVehicle(const VehicleData& vehicle);
-    bool removeVehicle(const std::string& licensePlate);
+    bool addVehicle(const VehicleData& vehicle) const;
+    bool removeVehicle(const std::string& licensePlate) const;
     VehicleData* findVehicle(const std::string& licensePlate);
     const VehicleData* findVehicle(const std::string& licensePlate) const;
 
-    bool createParkingLot(const std::string& name, int totalSpots);
-    bool removeParkingLot(int lotId);
+    bool createParkingLot(const std::string& name, int totalSpots) const;
+    bool removeParkingLot(int lotId) const;
     ParkingLotData* getParkingLot(int lotId);
     const ParkingLotData* getParkingLot(int lotId) const;
 
-    bool parkVehicle(const std::string& licensePlate, int lotId, int spotNumber);
-    bool releaseSpot(int lotId, int spotNumber);
+    bool parkVehicle(const std::string& licensePlate, int lotId, int spotNumber) const;
+    bool releaseSpot(int lotId, int spotNumber) const;
 
     const std::vector<VehicleData>& getVehicles() const;
     const std::map<int, ParkingLotData>& getParkingLots() const;

@@ -26,7 +26,7 @@ ParkingSystem::~ParkingSystem() {
     saveState();
 }
 
-bool ParkingSystem::addVehicle(const VehicleData& vehicle) {
+bool ParkingSystem::addVehicle(const VehicleData& vehicle) const {
     auto& repo = DataRepository::getInstance();
     try {
         bool result = VehicleService::addVehicle(vehicle, repo.getVehicles());
@@ -39,7 +39,7 @@ bool ParkingSystem::addVehicle(const VehicleData& vehicle) {
     }
 }
 
-bool ParkingSystem::removeVehicle(const std::string& licensePlate) {
+bool ParkingSystem::removeVehicle(const std::string& licensePlate) const {
     auto& repo = DataRepository::getInstance();
 
     for (auto& [lotId, lot] : repo.getParkingLots()) {
@@ -69,7 +69,7 @@ const VehicleData* ParkingSystem::findVehicle(const std::string& licensePlate) c
     return VehicleService::findVehicle(licensePlate, repo.getVehicles());
 }
 
-bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) {
+bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) const {
     auto& repo = DataRepository::getInstance();
     int lotId = repo.getNextLotId(); // Используем константный метод
     bool result = ParkingLotService::createParkingLot(name, totalSpots, lotId, repo.getParkingLots());
@@ -80,7 +80,7 @@ bool ParkingSystem::createParkingLot(const std::string& name, int totalSpots) {
     return result;
 }
 
-bool ParkingSystem::removeParkingLot(int lotId) {
+bool ParkingSystem::removeParkingLot(int lotId) const {
     auto& repo = DataRepository::getInstance();
     bool result = ParkingLotService::removeParkingLot(lotId, repo.getParkingLots());
     if (result) {
@@ -99,12 +99,12 @@ const ParkingLotData* ParkingSystem::getParkingLot(int lotId) const {
     return ParkingLotService::getParkingLot(lotId, repo.getParkingLots());
 }
 
-bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int spotNumber) {
+bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int spotNumber) const {
     auto& repo = DataRepository::getInstance();
     bool result = ParkingService::parkVehicle(licensePlate, lotId, spotNumber,
                                               repo.getParkingLots(), repo.getVehicles());
     if (result) {
-        if (VehicleData* vehicle = findVehicle(licensePlate); vehicle) {
+        if (VehicleData* vehicle = VehicleService::findVehicle(licensePlate, repo.getVehicles()); vehicle) {
             vehicle->setParked(true);
         }
         saveState();
@@ -112,7 +112,7 @@ bool ParkingSystem::parkVehicle(const std::string& licensePlate, int lotId, int 
     return result;
 }
 
-bool ParkingSystem::releaseSpot(int lotId, int spotNumber) {
+bool ParkingSystem::releaseSpot(int lotId, int spotNumber) const {
     auto& repo = DataRepository::getInstance();
     bool result = ParkingService::releaseSpot(lotId, spotNumber,
                                               repo.getParkingLots(), repo.getVehicles());
@@ -159,7 +159,6 @@ bool ParkingSystem::saveState() const {
 
 bool ParkingSystem::loadState() const {
     auto& repo = DataRepository::getInstance();
-    // Используем неконстантную версию getNextLotId() для передачи по ссылке
     return FileManager::loadSystemState(repo.getVehicles(), repo.getParkingLots(), repo.getNextLotId());
 }
 
