@@ -3,12 +3,13 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include "ParkingLotData.h"
 #include "ParkingSpotData.h"
 
 class ParkingLotService {
 public:
-    static bool createParkingLot(const std::string& name,
+    static bool createParkingLot(std::string_view name,
                                  int totalSpots,
                                  int& nextLotId,
                                  std::map<int, ParkingLotData>& lots);

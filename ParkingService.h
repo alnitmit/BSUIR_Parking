@@ -14,7 +14,7 @@ public:
                             int lotId,
                             int spotNumber,
                             std::map<int, ParkingLotData>& lots,
-                            const std::vector<VehicleData>& vehicles);
+                            std::vector<VehicleData>& vehicles);
 
     static bool releaseSpot(int lotId,
                             int spotNumber,

@@ -6,36 +6,32 @@
 #include "VehicleAlreadyParkedError.h"
 #include "SpotAlreadyFreeError.h"
 #include "IncompatibleSpotSizeError.h"
-#include <sstream>
+#include <format>
 
 bool ParkingService::parkVehicle(const std::string& licensePlate, int lotId, int spotNumber,
                                  std::map<int, ParkingLotData>& lots,
-                                 const std::vector<VehicleData>& vehicles) {
-    const VehicleData* vehicle = VehicleService::findVehicle(licensePlate, vehicles);
+                                 std::vector<VehicleData>& vehicles) {
+    VehicleData* vehicle = VehicleService::findVehicle(licensePlate, vehicles);
     if (!vehicle) {
-        throw VehicleNotFoundError("Vehicle not found: " + licensePlate);
+        throw VehicleNotFoundError(std::format("Vehicle not found: {}", licensePlate));
     }
 
     if (vehicle->isParked()) {
-        throw VehicleAlreadyParkedError("Vehicle already parked: " + licensePlate);
+        throw VehicleAlreadyParkedError(std::format("Vehicle already parked: {}", licensePlate));
     }
 
     auto lotIt = lots.find(lotId);
     if (lotIt == lots.end()) {
-        std::stringstream ss;
-        ss << "Parking lot with ID " << lotId << " not found";
-        throw SpotNotFoundError(ss.str());
+        throw SpotNotFoundError(std::format("Parking lot with ID {} not found", lotId));
     }
 
     ParkingSpotData* spot = lotIt->second.getSpot(spotNumber);
     if (!spot) {
-        std::stringstream ss;
-        ss << "Parking spot " << spotNumber << " not found";
-        throw SpotNotFoundError(ss.str());
+        throw SpotNotFoundError(std::format("Parking spot {} not found", spotNumber));
     }
 
     if (spot->isOccupied()) {
-        throw SpotAlreadyOccupiedError("Spot already occupied: " + std::to_string(spotNumber));
+        throw SpotAlreadyOccupiedError(std::format("Spot already occupied: {}", spotNumber));
     }
 
     if (!isVehicleSizeCompatible(*vehicle, *spot)) {
@@ -44,7 +40,7 @@ bool ParkingService::parkVehicle(const std::string& licensePlate, int lotId, int
 
     spot->setOccupied(true);
     spot->setVehicleLicensePlate(licensePlate);
-    const_cast<VehicleData*>(vehicle)->setParked(true);
+    vehicle->setParked(true);
 
     return true;
 }
@@ -54,28 +50,23 @@ bool ParkingService::releaseSpot(int lotId, int spotNumber,
                                  std::vector<VehicleData>& vehicles) {
     auto lotIt = lots.find(lotId);
     if (lotIt == lots.end()) {
-        std::stringstream ss;
-        ss << "Parking lot with ID " << lotId << " not found";
-        throw SpotNotFoundError(ss.str());
+        throw SpotNotFoundError(std::format("Parking lot with ID {} not found", lotId));
     }
 
     ParkingSpotData* spot = lotIt->second.getSpot(spotNumber);
     if (!spot) {
-        std::stringstream ss;
-        ss << "Parking spot " << spotNumber << " not found";
-        throw SpotNotFoundError(ss.str());
+        throw SpotNotFoundError(std::format("Parking spot {} not found", spotNumber));
     }
 
     if (!spot->isOccupied()) {
-        throw SpotAlreadyFreeError("Spot already free: " + std::to_string(spotNumber));
+        throw SpotAlreadyFreeError(std::format("Spot already free: {}", spotNumber));
     }
 
     std::string licensePlate = spot->getVehicleLicensePlate();
     spot->setOccupied(false);
     spot->setVehicleLicensePlate("");
 
-    VehicleData* vehicle = VehicleService::findVehicle(licensePlate, vehicles);
-    if (vehicle) {
+    if (VehicleData* vehicle = VehicleService::findVehicle(licensePlate, vehicles); vehicle) {
         vehicle->setParked(false);
     }
 
