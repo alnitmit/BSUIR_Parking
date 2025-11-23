@@ -9,6 +9,7 @@
 
 class DataRepository {
 public:
+    // Используем статическую локальную переменную - это стандартный и рабочий подход
     static DataRepository& getInstance() {
         static DataRepository instance;
         return instance;
