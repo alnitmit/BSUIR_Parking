@@ -51,3 +51,10 @@
 847	4045	7856179725498550	CMakeFiles/pr.dir/pr_autogen/mocs_compilation.cpp.obj	34c36990f336f7ad
 854	5631	7856179725568501	CMakeFiles/pr.dir/mainwindow.cpp.obj	5af2db673893e801
 5632	6480	7856179773349569	pr.exe	352f7d0a42e187c9
+35	193	7856182753574062	pr_autogen/timestamp	2f8a2af4988365c3
+35	193	7856182753574062	pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+35	193	7856182753574062	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/timestamp	2f8a2af4988365c3
+35	193	7856182753574062	C:/Users/1/source/ParkingManagement/ParkingMan/pr/build/Desktop_Qt_shared_MinGW_w64_MINGW64_MSYS2-Debug/pr_autogen/mocs_compilation.cpp	2f8a2af4988365c3
+194	775	7856182755174407	CMakeFiles/pr.dir/DataRepository.cpp.obj	d2a82190d536756a
+198	1082	7856182755204492	CMakeFiles/pr.dir/ParkingSystem.cpp.obj	7c7981134d79f73e
+1082	1407	7856182764053308	pr.exe	352f7d0a42e187c9

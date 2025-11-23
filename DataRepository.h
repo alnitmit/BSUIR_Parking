@@ -19,9 +19,9 @@ public:
     std::map<int, ParkingLotData>& getParkingLots() { return lots_; }
     const std::map<int, ParkingLotData>& getParkingLots() const { return lots_; }
 
-    int& getNextLotId() { return nextLotId_; } // Возвращаем неконстантную ссылку
+    int& getNextLotId() { return nextLotId_; }
     int getNextLotId() const { return nextLotId_; }
-    void setNextLotId(int id) { nextLotId_ = id; }
+    void setNextLotId(int id) const { nextLotId_ = id; }
 
     void clear();
 
