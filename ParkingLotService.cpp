@@ -19,12 +19,15 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
 
     ParkingLotData newLot(lotId, name);
 
+    // Используем using enum в правильной области видимости
     for (int i = 1; i <= totalSpots; ++i) {
-        ParkingSpotData::Size spotSize = ParkingSpotData::Size::Standard;
+        using enum ParkingSpotData::Size; // Внутри цикла, где используется
+
+        Size spotSize = Standard;
         if (i <= totalSpots * 0.2) {
-            spotSize = ParkingSpotData::Size::Compact;
+            spotSize = Compact;
         } else if (i > totalSpots * 0.8) {
-            spotSize = ParkingSpotData::Size::Large;
+            spotSize = Large;
         }
 
         ParkingSpotData spot(i, spotSize);
@@ -34,6 +37,8 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
     lots[lotId] = newLot;
     return true;
 }
+
+// Остальные методы без изменений...
 
 
 // Остальные методы остаются без изменений

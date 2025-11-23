@@ -86,25 +86,29 @@ void ModernDialog::setupUI(DialogType type, const QString& title, const QString&
 
 QString ModernDialog::getIcon(DialogType type) const
 {
+    using enum DialogType; // Добавлено using enum
+
     switch (type) {
-    case DialogType::Info: return "💡";
-    case DialogType::Success: return "✅";
-    case DialogType::Warning: return "⚠️";
-    case DialogType::Error: return "❌";
-    case DialogType::Question: return "❓";
+    case Info: return "💡";
+    case Success: return "✅";
+    case Warning: return "⚠️";
+    case Error: return "❌";
+    case Question: return "❓";
     default: return "💡";
     }
 }
 
 QString ModernDialog::getStyleSheet(DialogType type) const
 {
+    using enum DialogType; // Добавлено using enum
+
     QString gradient;
     switch (type) {
-    case DialogType::Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
-    case DialogType::Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
-    case DialogType::Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
-    case DialogType::Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
-    case DialogType::Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
+    case Info: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)"; break;
+    case Success: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #27ae60,stop:1 #219a52)"; break;
+    case Warning: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #f39c12,stop:1 #e67e22)"; break;
+    case Error: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #e74c3c,stop:1 #c0392b)"; break;
+    case Question: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #9b59b6,stop:1 #8e44ad)"; break;
     default: gradient = "qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #3498db,stop:1 #2980b9)";
     }
     return QString("QFrame#mainFrame { background:%1; border-radius:15px; border:1px solid rgba(255,255,255,0.2);}").arg(gradient);
