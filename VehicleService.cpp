@@ -1,7 +1,8 @@
 #include "VehicleService.h"
 #include <algorithm>
+#include <memory>
 
-bool VehicleService::addVehicle(VehicleData vehicle, std::vector<VehicleData>& vehicles) {
+bool VehicleService::addVehicle(const VehicleData& vehicle, std::vector<VehicleData>& vehicles) {
     auto it = std::find_if(vehicles.begin(), vehicles.end(),
                            [&vehicle](const VehicleData& v) {
                                return v.getLicensePlate() == vehicle.getLicensePlate();
@@ -34,7 +35,10 @@ VehicleData* VehicleService::findVehicle(const std::string& licensePlate, std::v
                                return vehicle.getLicensePlate() == licensePlate;
                            });
 
-    return (it != vehicles.end()) ? &(*it) : nullptr;
+    if (it != vehicles.end()) {
+        return &(*it); // Замена std::to_address
+    }
+    return nullptr;
 }
 
 const VehicleData* VehicleService::findVehicle(const std::string& licensePlate, const std::vector<VehicleData>& vehicles) {
@@ -43,7 +47,10 @@ const VehicleData* VehicleService::findVehicle(const std::string& licensePlate, 
                                return vehicle.getLicensePlate() == licensePlate;
                            });
 
-    return (it != vehicles.end()) ? &(*it) : nullptr;
+    if (it != vehicles.end()) {
+        return &(*it); // Замена std::to_address
+    }
+    return nullptr;
 }
 
 bool VehicleService::isVehicleParked(const std::string& licensePlate, const std::vector<VehicleData>& vehicles) {
