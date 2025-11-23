@@ -19,6 +19,7 @@ bool ParkingLotService::createParkingLot(std::string_view name, int totalSpots, 
 
     ParkingLotData newLot(lotId, name);
 
+    // Используем using enum с явным указанием пространства имен
     for (int i = 1; i <= totalSpots; ++i) {
         ParkingSpotData::Size size = ParkingSpotData::Size::Standard;
         if (i <= totalSpots * 0.2) {
@@ -59,7 +60,7 @@ int ParkingLotService::getFreeSpots(const ParkingLotData& lot) {
 }
 
 double ParkingLotService::getOccupancyRate(const ParkingLotData& lot) {
-    int total = static_cast<int>(lot.getSpots().size());
+    auto total = static_cast<int>(lot.getSpots().size());
     if (total == 0) return 0.0;
 
     auto occupied = getOccupiedSpots(lot);
