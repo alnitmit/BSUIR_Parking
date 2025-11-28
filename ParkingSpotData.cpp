@@ -50,9 +50,9 @@ std::string ParkingSpotData::getSizeString() const {
 
 ParkingSpotData::Size ParkingSpotData::parseSize(std::string_view str) {
     using enum Size;
-    if (str == "Compact") return Compact;
-    if (str == "Standard") return Standard;
-    if (str == "Large") return Large;
+    if (str == "Compact"   || str == "Компактное") return Compact;
+    if (str == "Standard"  || str == "Стандартное") return Standard;
+    if (str == "Large"     || str == "Большое") return Large;
     throw std::invalid_argument("Invalid spot size");
 }
 
