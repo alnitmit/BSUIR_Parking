@@ -420,6 +420,7 @@ void MainWindow::onSpotClicked(int spotNumber)
 
     QString info = QString("📍 Место %1\n\n").arg(spotNumber);
     info += QString("📊 Статус: %1\n").arg(spot->isOccupied() ? "🟥 Занято" : "🟩 Свободно");
+    info += QString("📐 Размер: %1\n").arg(QString::fromStdString(spot->getSizeString()));
 
     if (spot->isOccupied() && !spot->getVehicleLicensePlate().empty()) {
         const VehicleData* vehicle = parkingSystem_.findVehicle(spot->getVehicleLicensePlate());

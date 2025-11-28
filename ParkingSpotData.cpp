@@ -41,10 +41,10 @@ void ParkingSpotData::release() {
 std::string ParkingSpotData::getSizeString() const {
     using enum Size;
     switch (size_) {
-    case Compact: return "Compact";
-    case Standard: return "Standard";
-    case Large: return "Large";
-    default: return "Unknown";
+    case Compact: return "Компактное";
+    case Standard: return "Стандартное";
+    case Large: return "Большое";
+    default: return "Неизвестное";
     }
 }
 
@@ -59,10 +59,10 @@ ParkingSpotData::Size ParkingSpotData::parseSize(std::string_view str) {
 std::string ParkingSpotData::sizeToString(Size size) {
     using enum Size;
     switch (size) {
-    case Compact: return "Compact";
-    case Standard: return "Standard";
-    case Large: return "Large";
-    default: return "Unknown";
+    case Compact: return "Компактное";
+    case Standard: return "Стандартное";
+    case Large: return "Большое";
+    default: return "Неизвестное";
     }
 }
 
