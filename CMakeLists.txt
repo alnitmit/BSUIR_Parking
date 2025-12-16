@@ -16,71 +16,76 @@ set(PROJECT_SOURCES
     main.cpp
     mainwindow.cpp
     mainwindow.h
-    VehicleData.h
-    VehicleData.cpp
-    ParkingSpotData.h
-    ParkingSpotData.cpp
-    ParkingLotData.h
-    ParkingLotData.cpp
-    ParkingService.h
-    ParkingService.cpp
-    VehicleService.h
-    VehicleService.cpp
-    ParkingLotService.h
-    ParkingLotService.cpp
-    StatisticsService.h
-    StatisticsService.cpp
-    FileManager.h
-    FileManager.cpp
-    DataRepository.h
-    DataRepository.cpp
-    ParkingSystem.h
-    ParkingSystem.cpp
-    InputValidator.h
-    InputValidator.cpp
-    FilterCriteria.h
-    FilterCriteria.cpp
-    ParkingLotView.h
-    ParkingLotView.cpp
-    ModernDialog.h
-    ModernDialog.cpp
-    InputDialog.h
-    InputDialog.cpp
-    InvalidLicensePlateError.h
-    InvalidLicensePlateError.cpp
-    InvalidTimeFormatError.h
-    InvalidTimeFormatError.cpp
-    InputCancelledError.h
-    InputCancelledError.cpp
-    DuplicateVehicleError.h
-    DuplicateVehicleError.cpp
-    InvalidSpotNumberError.h
-    InvalidSpotNumberError.cpp
-    FileIOException.h
-    FileIOException.cpp
-    ParkingSystemError.h
-    ParkingSystemError.cpp
-    VehicleNotFoundError.h
-    VehicleNotFoundError.cpp
-    SpotNotFoundError.h
-    SpotNotFoundError.cpp
-    SpotAlreadyOccupiedError.h
-    SpotAlreadyOccupiedError.cpp
-    SpotAlreadyFreeError.h
-    SpotAlreadyFreeError.cpp
-    VehicleAlreadyParkedError.h
-    VehicleAlreadyParkedError.cpp
-    IncompatibleSpotSizeError.h
-    IncompatibleSpotSizeError.cpp
-    ExportError.h
-    ExportError.cpp
+    Source/VehicleData.cpp
+    Source/VehicleData.h
+    Source/ParkingSpotData.cpp
+    Source/ParkingSpotData.h
+    Source/ParkingLotData.cpp
+    Source/ParkingLotData.h
+    Source/ParkingService.cpp
+    Source/ParkingService.h
+    Source/VehicleService.cpp
+    Source/VehicleService.h
+    Source/ParkingLotService.cpp
+    Source/ParkingLotService.h
+    Source/StatisticsService.cpp
+    Source/StatisticsService.h
+    Source/FileManager.cpp
+    Source/FileManager.h
+    Source/DataRepository.cpp
+    Source/DataRepository.h
+    Source/ParkingSystem.cpp
+    Source/ParkingSystem.h
+    Source/InputValidator.cpp
+    Source/InputValidator.h
+    Source/FilterCriteria.cpp
+    Source/FilterCriteria.h
+    Source/ParkingLotView.cpp
+    Source/ParkingLotView.h
+    Source/ModernDialog.cpp
+    Source/ModernDialog.h
+    Source/InputDialog.cpp
+    Source/InputDialog.h
+    Exceptions/InvalidLicensePlateError.cpp
+    Exceptions/InvalidLicensePlateError.h
+    Exceptions/InvalidTimeFormatError.cpp
+    Exceptions/InvalidTimeFormatError.h
+    Exceptions/InputCancelledError.cpp
+    Exceptions/InputCancelledError.h
+    Exceptions/DuplicateVehicleError.cpp
+    Exceptions/DuplicateVehicleError.h
+    Exceptions/InvalidSpotNumberError.cpp
+    Exceptions/InvalidSpotNumberError.h
+    Exceptions/FileIOException.cpp
+    Exceptions/FileIOException.h
+    Exceptions/ParkingSystemError.cpp
+    Exceptions/ParkingSystemError.h
+    Exceptions/VehicleNotFoundError.cpp
+    Exceptions/VehicleNotFoundError.h
+    Exceptions/SpotNotFoundError.cpp
+    Exceptions/SpotNotFoundError.h
+    Exceptions/SpotAlreadyOccupiedError.cpp
+    Exceptions/SpotAlreadyOccupiedError.h
+    Exceptions/SpotAlreadyFreeError.cpp
+    Exceptions/SpotAlreadyFreeError.h
+    Exceptions/VehicleAlreadyParkedError.cpp
+    Exceptions/VehicleAlreadyParkedError.h
+    Exceptions/IncompatibleSpotSizeError.cpp
+    Exceptions/IncompatibleSpotSizeError.h
+    Exceptions/ExportError.cpp
+    Exceptions/ExportError.h
+)
+
+# Добавляем если есть
+list(APPEND PROJECT_SOURCES
+    Exceptions/ParkingLotNotFoundError.cpp
+    Exceptions/ParkingLotNotFoundError.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(pr
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        ParkingLotNotFoundError.h ParkingLotNotFoundError.cpp
     )
 else()
     if(ANDROID)
